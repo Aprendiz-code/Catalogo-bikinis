@@ -1,7 +1,8 @@
 import type { CatalogSettings, Category, Product, CatalogPage } from "@/types/database";
 
 export function isMockDataEnabled() {
-  return process.env.NEXT_PUBLIC_USE_MOCK_DATA === "true";
+  const value = process.env.NEXT_PUBLIC_USE_MOCK_DATA;
+  return value === undefined || value === "" ? true : value === "true";
 }
 
 export const mockCatalogSettings: CatalogSettings = {

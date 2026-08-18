@@ -34,8 +34,8 @@ export function ProductEditorialCard({
     <article
       className={cn(
         "grid items-stretch gap-0 border border-[#3d5f5a]/60 bg-[#f3f0eb]",
-        compact ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-[1.15fr_1fr]",
-        !imageLeft && !compact && "sm:[&>*:first-child]:order-2 sm:[&>*:last-child]:order-1",
+        compact ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-[1.15fr_1fr]",
+        !imageLeft && !compact && "[&>*:first-child]:order-2 [&>*:last-child]:order-1 sm:[&>*:first-child]:order-2 sm:[&>*:last-child]:order-1",
       )}
     >
       <div
