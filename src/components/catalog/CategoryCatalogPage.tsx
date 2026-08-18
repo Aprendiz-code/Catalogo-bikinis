@@ -31,9 +31,9 @@ export function CategoryCatalogPage({
   }, []);
 
   const visibleProducts = useMemo(() => {
-    const limit = isMobile ? 2 : 3;
+    const limit = 2;
     return products.slice(0, limit);
-  }, [isMobile, products]);
+  }, [products]);
 
   return (
     <div className="catalog-outer h-full" style={{ backgroundColor: category.background_color }}>
