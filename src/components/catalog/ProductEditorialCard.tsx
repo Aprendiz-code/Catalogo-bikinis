@@ -33,18 +33,17 @@ export function ProductEditorialCard({
   return (
     <article
       className={cn(
-        "grid items-stretch gap-0 overflow-hidden border border-[#3d5f5a]/60 bg-[#f3f0eb]",
+        "grid items-stretch gap-0 border border-[#3d5f5a]/60 bg-[#f3f0eb]",
         compact ? "grid-cols-2" : "grid-cols-1 sm:grid-cols-[1.15fr_1fr]",
         !imageLeft && !compact && "sm:[&>*:first-child]:order-2 sm:[&>*:last-child]:order-1",
       )}
     >
       <div
         className={cn(
-          "relative overflow-hidden bg-[#EEF3F2]",
+          "relative min-h-[180px] overflow-hidden bg-[#EEF3F2] sm:min-h-[200px]",
           imageLeft ? "" : "",
           compact ? "" : "",
         )}
-        style={{ minHeight: compact ? "180px" : "md" in document.documentElement.style ? "200px" : "150px" }}
       >
         {product.image_url ? (
           <Image
@@ -63,21 +62,21 @@ export function ProductEditorialCard({
 
       <div
         className={cn(
-          "flex min-h-[160px] flex-col justify-center bg-[#f5f4ef] px-3 py-2 sm:px-5 sm:py-4",
+          "flex min-h-[160px] flex-col justify-center bg-[#f5f4ef] px-3 py-3 sm:px-5 sm:py-4",
           compact ? "border-l border-[#3d5f5a]/60" : "border-t sm:border-t-0 sm:border-l border-[#3d5f5a]/60",
         )}
       >
-        <div className="space-y-0.5 text-center text-brand-ink">
-          <p className="font-display text-[clamp(0.7rem,2vw,1.2rem)] italic leading-none text-[#3e5b56]">
+        <div className="space-y-1 text-center text-brand-ink sm:space-y-0.5">
+          <p className="font-display text-[clamp(0.7rem,2vw,1.2rem)] italic leading-snug text-[#3e5b56]">
             {product.material || "Algodón"}
           </p>
-          <h3 className="font-display text-[clamp(1rem,2.5vw,2.3rem)] uppercase leading-none tracking-[-0.05em] text-[#2f4d4a]">
+          <h3 className="font-display text-[clamp(1rem,2.5vw,2.3rem)] uppercase leading-tight tracking-[-0.05em] text-[#2f4d4a]">
             {product.name}
           </h3>
-          <p className="font-display text-[clamp(0.8rem,1.8vw,1.6rem)] leading-none tracking-[-0.04em] text-[#2f4d4a]">
+          <p className="font-display text-[clamp(0.8rem,1.8vw,1.6rem)] leading-snug tracking-[-0.04em] text-[#2f4d4a]">
             Precio: {formatPriceCOP(product.price)}
           </p>
-          <p className="text-[clamp(0.58rem,1.4vw,0.75rem)] text-[#2f4d4a]">
+          <p className="text-[clamp(0.58rem,1.4vw,0.75rem)] leading-snug text-[#2f4d4a]">
             Tallas: {formatSizes(product.sizes)}
           </p>
         </div>
