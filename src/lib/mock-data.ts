@@ -48,6 +48,13 @@ const images = [
   "https://images.unsplash.com/photo-1537050487db-5ac1f5f4bda4?auto=format&fit=crop&w=900&q=80",
   "https://images.unsplash.com/photo-1549887534-7051a2b5b249?auto=format&fit=crop&w=900&q=80",
   "https://images.unsplash.com/photo-1520342868574-e3c19038b8b5?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1529134391234-544e2f298f0b?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1200&q=80",
+  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1100&q=80",
+  "https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80",
+  "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=1000&q=80",
 ];
 
 export const mockCategories: Category[] = [
