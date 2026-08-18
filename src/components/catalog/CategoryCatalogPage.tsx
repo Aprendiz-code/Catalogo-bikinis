@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useMemo, useState } from "react";
 import { ProductEditorialCard } from "@/components/catalog/ProductEditorialCard";
 import type { CatalogSettings, Category, Product } from "@/types/database";
 
@@ -16,6 +19,22 @@ export function CategoryCatalogPage({
   pageIndex = 1,
   totalPages = 1,
 }: Props) {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia("(max-width: 767px)");
+    const update = () => setIsMobile(media.matches);
+
+    update();
+    media.addEventListener("change", update);
+    return () => media.removeEventListener("change", update);
+  }, []);
+
+  const visibleProducts = useMemo(() => {
+    const limit = isMobile ? 2 : 3;
+    return products.slice(0, limit);
+  }, [isMobile, products]);
+
   return (
     <div className="catalog-outer h-full" style={{ backgroundColor: category.background_color }}>
       <div className="catalog-sheet px-[6%] py-[5%]" style={{ color: category.text_color }}>
@@ -31,12 +50,12 @@ export function CategoryCatalogPage({
         </header>
 
         <div className="flex min-h-0 flex-1 flex-col gap-[4%]">
-          {products.length === 0 ? (
+          {visibleProducts.length === 0 ? (
             <div className="flex flex-1 items-center justify-center text-center text-sm text-brand-muted">
               Próximamente productos en esta categoría.
             </div>
           ) : (
-            products.map((product, index) => (
+            visibleProducts.map((product, index) => (
               <ProductEditorialCard
                 key={product.id}
                 product={product}
