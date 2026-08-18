@@ -40,7 +40,7 @@ export function ProductEditorialCard({
     >
       <div
         className={cn(
-          "relative min-h-[150px] overflow-hidden bg-[#EEF3F2] sm:min-h-[170px] md:min-h-[190px]",
+          "relative min-h-[120px] overflow-hidden bg-[#EEF3F2] sm:min-h-[135px] md:min-h-[155px]",
           imageLeft ? "" : "",
           compact ? "" : "",
         )}
@@ -62,7 +62,7 @@ export function ProductEditorialCard({
 
       <div
         className={cn(
-          "flex min-h-[150px] flex-col justify-center bg-[#f5f4ef] px-2 py-3 sm:min-h-[170px] sm:px-3 sm:py-3 md:min-h-[190px] md:px-3 md:py-4",
+          "flex min-h-[120px] flex-col justify-center bg-[#f5f4ef] px-2 py-2 sm:min-h-[135px] sm:px-3 sm:py-2 md:min-h-[155px] md:px-3 md:py-3",
           compact ? "border-l border-[#3d5f5a]/60" : "border-t sm:border-t-0 sm:border-l border-[#3d5f5a]/60",
         )}
       >
