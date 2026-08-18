@@ -109,7 +109,7 @@ export function ProductGrid({ products, categories, whatsapp, initialCategory }:
           No hay productos con esos filtros.
         </div>
       ) : (
-        <div className="grid gap-2 grid-cols-1 sm:gap-3 sm:grid-cols-2 md:gap-4 lg:grid-cols-3 xl:grid-cols-4">
+        <div className="grid gap-2 grid-cols-2 sm:gap-3 sm:grid-cols-2 md:gap-4 md:grid-cols-3 lg:grid-cols-3">
           {filtered.map((product) => (
             <ProductGridCard key={product.id} product={product} whatsapp={whatsapp} />
           ))}
