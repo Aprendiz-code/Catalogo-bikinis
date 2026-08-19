@@ -37,7 +37,6 @@ export function ProductGridCard({ product }: Props) {
         <p className="text-xs text-brand-muted">{product.material}</p>
         <h3 className="font-display text-sm sm:text-lg md:text-xl uppercase tracking-[0.06em] sm:tracking-[0.08em]">{product.name}</h3>
         <p className="text-xs sm:text-sm font-semibold">{formatPriceCOP(product.price)}</p>
-        <p className="text-xs text-brand-muted">Tallas: {formatSizes(product.sizes)}</p>
         <div className="mt-auto flex gap-2 sm:gap-3 pt-2">
           {product.purchase_url ? (
             <Link href={product.purchase_url} className="text-xs uppercase tracking-wide underline underline-offset-2 hover:opacity-70 transition-opacity">

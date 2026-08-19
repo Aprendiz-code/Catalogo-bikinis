@@ -1,5 +1,60 @@
 import type { CatalogSettings, Category, Product, CatalogPage } from "@/types/database";
 
+const resolveGafasAsset = (fileName: string) => new URL(`../../img/Gafas/${fileName}`, import.meta.url).href;
+
+const gafasImageMap: Record<number, string> = {
+  1: resolveGafasAsset("gafas 1.jpeg"),
+  2: resolveGafasAsset("gafas 2.jpeg"),
+  3: resolveGafasAsset("gafas 3.jpeg"),
+  4: resolveGafasAsset("gafas 4.jpeg"),
+  5: resolveGafasAsset("gafas 5.jpeg"),
+  6: resolveGafasAsset("gafas 6.jpeg"),
+  7: resolveGafasAsset("gafas 7.jpeg"),
+  8: resolveGafasAsset("gafas 8.jpeg"),
+  9: resolveGafasAsset("gafas 9.jpeg"),
+  10: resolveGafasAsset("gafas 10.jpeg"),
+  11: resolveGafasAsset("gafas 11.jpeg"),
+  12: resolveGafasAsset("gafas 12.jpeg"),
+  13: resolveGafasAsset("gafas 13.jpeg"),
+  14: resolveGafasAsset("gafas 14.jpeg"),
+  15: resolveGafasAsset("gafas 15.jpeg"),
+  16: resolveGafasAsset("gafas 16.jpeg"),
+  17: resolveGafasAsset("gafas 17.jpeg"),
+  18: resolveGafasAsset("gafas 18.jpeg"),
+  19: resolveGafasAsset("gafas 19.jpeg"),
+  20: resolveGafasAsset("gafas 20.jpeg"),
+  21: resolveGafasAsset("gafas 21.jpeg"),
+  22: resolveGafasAsset("gafas 22.jpeg"),
+  23: resolveGafasAsset("gafas 23.jpeg"),
+  24: resolveGafasAsset("gafas 24.jpeg"),
+  25: resolveGafasAsset("gafas 25.jpeg"),
+  26: resolveGafasAsset("gafas 26.jpeg"),
+  27: resolveGafasAsset("gafas 27.jpeg"),
+  28: resolveGafasAsset("gafas 28.jpeg"),
+  29: resolveGafasAsset("gafas 29.jpeg"),
+  30: resolveGafasAsset("gafas 30.jpeg"),
+  31: resolveGafasAsset("gafas 30.jpeg"),
+  32: resolveGafasAsset("gafas 32.jpeg"),
+  33: resolveGafasAsset("gafas 33.jpeg"),
+  34: resolveGafasAsset("gafas 34.jpeg"),
+  35: resolveGafasAsset("gafas 35.jpeg"),
+  36: resolveGafasAsset("gafas 36.jpeg"),
+  37: resolveGafasAsset("gafas 37.jpeg"),
+  38: resolveGafasAsset("gafas 38.jpeg"),
+  39: resolveGafasAsset("gafas 38.jpeg"),
+  40: resolveGafasAsset("gafas 40.jpeg"),
+  41: resolveGafasAsset("gafas 41.jpeg"),
+  42: resolveGafasAsset("gafas 42.jpeg"),
+};
+
+if (typeof console !== "undefined") {
+  [31, 39].forEach((missingIndex) => {
+    console.warn(
+      `[Gafas] No se encontró la imagen esperada: gafas ${missingIndex}.jpeg. Se reutiliza el archivo más cercano disponible para mantener la secuencia de 42 tarjetas.`
+    );
+  });
+}
+
 export function isMockDataEnabled() {
   const value = process.env.NEXT_PUBLIC_USE_MOCK_DATA;
   return value === undefined || value === "" ? true : value === "true";
@@ -162,51 +217,49 @@ export const mockCategories: Category[] = [
   },
 ];
 
-const gafasProductNames = Array.from({ length: 42 }, (_, index) => `Gafas ${index + 1}`);
-
 const gafasCatalog = [
-  { name: "Gafas Horizon", material: "Policarbonato", price: 149, sizes: ["S", "M", "L"], description: "Lentes ligeras con acabado urbano y versátil." },
-  { name: "Gafas Nube", material: "Acetato", price: 169, sizes: ["XS", "S", "M", "L"], description: "Estética elegante para días soleados y looks premium." },
-  { name: "Gafas Tropic", material: "Policarbonato", price: 179, sizes: ["S", "M", "L", "XL"], description: "Un diseño tropical con detalle moderno." },
-  { name: "Gafas Sunset", material: "Acetato", price: 189, sizes: ["S", "M", "L"], description: "Tonos cálidos y una silueta contemporánea." },
-  { name: "Gafas Marina", material: "Policarbonato", price: 172, sizes: ["M", "L", "XL"], description: "Perfectas para admirar el mar con estilo." },
-  { name: "Gafas Palmera", material: "Acetato", price: 165, sizes: ["S", "M", "L"], description: "Un look relajado con energía de verano." },
-  { name: "Gafas Aurora", material: "Policarbonato", price: 182, sizes: ["XS", "S", "M", "L"], description: "Perfil delicado, brillo premium y gran confort." },
-  { name: "Gafas Coral", material: "Acetato", price: 198, sizes: ["S", "M", "L", "XL"], description: "Color intenso y detalles sofisticados." },
-  { name: "Gafas Eclipse", material: "Policarbonato", price: 174, sizes: ["S", "M", "L"], description: "Minimalistas, luminosas y con carácter." },
-  { name: "Gafas Riviera", material: "Acetato", price: 185, sizes: ["S", "M", "L", "XL"], description: "Un acabado refinado para looks urbanos." },
-  { name: "Gafas Sol", material: "Policarbonato", price: 156, sizes: ["One Size"], description: "Una opción fácil y estilosa para cada outfit." },
-  { name: "Gafas Ocean", material: "Acetato", price: 193, sizes: ["S", "M", "L"], description: "Diseño con presencia y gran equilibrio visual." },
-  { name: "Gafas Brisa", material: "Policarbonato", price: 168, sizes: ["XS", "S", "M", "L"], description: "Ligereza y esencia elegante para todas las horas." },
-  { name: "Gafas Vogue", material: "Acetato", price: 210, sizes: ["S", "M", "L", "XL"], description: "Silueta statement con detalle editorial." },
-  { name: "Gafas Estela", material: "Policarbonato", price: 175, sizes: ["S", "M", "L"], description: "Ajuste moderno y acabado impecable." },
-  { name: "Gafas Aster", material: "Acetato", price: 188, sizes: ["XS", "S", "M", "L"], description: "Un estilo sobrio con brillo femenino." },
-  { name: "Gafas Cielo", material: "Policarbonato", price: 160, sizes: ["One Size"], description: "Frescas, cómodas y listas para cualquier plan." },
-  { name: "Gafas Duna", material: "Acetato", price: 181, sizes: ["S", "M", "L", "XL"], description: "Acabado premium con energía costera." },
-  { name: "Gafas Delta", material: "Policarbonato", price: 172, sizes: ["S", "M", "L"], description: "Visual moderna con gran adaptabilidad." },
-  { name: "Gafas Llama", material: "Acetato", price: 201, sizes: ["S", "M", "L"], description: "Una mirada audaz y enriquecida en detalle." },
-  { name: "Gafas Lune", material: "Policarbonato", price: 163, sizes: ["M", "L", "XL"], description: "Discreta, femenina y muy fácil de combinar." },
-  { name: "Gafas Marea", material: "Acetato", price: 177, sizes: ["S", "M", "L", "XL"], description: "Estilo marinero con un toque elegante." },
-  { name: "Gafas Nilo", material: "Policarbonato", price: 171, sizes: ["XS", "S", "M", "L"], description: "Formato limpio, ligero y sofisticado." },
-  { name: "Gafas Orla", material: "Acetato", price: 196, sizes: ["S", "M", "L"], description: "Una apuesta con personalidad editorial." },
-  { name: "Gafas Pera", material: "Policarbonato", price: 158, sizes: ["One Size"], description: "Céntrate en el confort y el estilo diario." },
-  { name: "Gafas Rayo", material: "Acetato", price: 184, sizes: ["S", "M", "L"], description: "Reflejo de la última tendencia de sol." },
-  { name: "Gafas Siroco", material: "Policarbonato", price: 170, sizes: ["M", "L", "XL"], description: "Diseño con forma esbelta y moderna." },
-  { name: "Gafas Tulum", material: "Acetato", price: 209, sizes: ["S", "M", "L", "XL"], description: "Mención de lujo para un look de vacaciones." },
-  { name: "Gafas Ula", material: "Policarbonato", price: 155, sizes: ["S", "M", "L"], description: "Minimalismo con tendencia y gran practicidad." },
-  { name: "Gafas Vela", material: "Acetato", price: 194, sizes: ["XS", "S", "M", "L"], description: "Cierto aire romántico con brillo premium." },
-  { name: "Gafas Willa", material: "Policarbonato", price: 173, sizes: ["S", "M", "L"], description: "Elegancia ligera para una imagen refinada." },
-  { name: "Gafas Xara", material: "Acetato", price: 187, sizes: ["M", "L", "XL"], description: "Forma moderna con un detalle editorial." },
-  { name: "Gafas Yara", material: "Policarbonato", price: 176, sizes: ["One Size"], description: "Un modelo capaz de vestir cualquier look." },
-  { name: "Gafas Zenith", material: "Acetato", price: 205, sizes: ["S", "M", "L", "XL"], description: "Perfil elegante con gran presencia visual." },
-  { name: "Gafas Alba", material: "Policarbonato", price: 162, sizes: ["XS", "S", "M", "L"], description: "Atractivo clásico y de rápida combinación." },
-  { name: "Gafas Beryl", material: "Acetato", price: 199, sizes: ["S", "M", "L"], description: "Color de tendencia y acabado muy cuidado." },
-  { name: "Gafas Cora", material: "Policarbonato", price: 167, sizes: ["M", "L", "XL"], description: "Silueta femenina, cómoda y segura." },
-  { name: "Gafas Dalia", material: "Acetato", price: 191, sizes: ["S", "M", "L", "XL"], description: "Intensidad estilística para uso diario." },
-  { name: "Gafas Eros", material: "Policarbonato", price: 180, sizes: ["S", "M", "L"], description: "Fusión de modernidad y refinamiento." },
-  { name: "Gafas Faro", material: "Acetato", price: 203, sizes: ["XS", "S", "M", "L"], description: "Luz, estructura y detalles de moda." },
-  { name: "Gafas Gema", material: "Policarbonato", price: 169, sizes: ["One Size"], description: "Versión ligera con impacto visual inmediato." },
-  { name: "Gafas Heli", material: "Acetato", price: 192, sizes: ["S", "M", "L", "XL"], description: "Comodidad casi invisible y gran presencia." },
+  { name: "Gafas Aurora", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[1] },
+  { name: "Gafas Eclipse", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[2] },
+  { name: "Gafas Riviera", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[3] },
+  { name: "Gafas Coral", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[4] },
+  { name: "Gafas Brisa", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[5] },
+  { name: "Gafas Sol", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[6] },
+  { name: "Gafas Marina", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[7] },
+  { name: "Gafas Nube", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[8] },
+  { name: "Gafas Horizon", material: "Material demo", price: 95000, sizes: [], description: "Cartier Transition", image_url: gafasImageMap[9] },
+  { name: "Gafas Duet", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[10] },
+  { name: "Gafas Vela", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[11] },
+  { name: "Gafas Cielo", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[12] },
+  { name: "Gafas Luma", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[13] },
+  { name: "Gafas Delta", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[14] },
+  { name: "Gafas Tulum", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[15] },
+  { name: "Gafas Marea", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[16] },
+  { name: "Gafas Cora", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[17] },
+  { name: "Gafas Alba", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[18] },
+  { name: "Gafas Beryl", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[19] },
+  { name: "Gafas Yara", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[20] },
+  { name: "Gafas Costa", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[21] },
+  { name: "Gafas Luna", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[22] },
+  { name: "Gafas Estela", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[23] },
+  { name: "Gafas Duna", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[24] },
+  { name: "Gafas Siroco", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[25] },
+  { name: "Gafas Faro", material: "Material demo", price: 95000, sizes: [], description: "Transition Miu Miu", image_url: gafasImageMap[26] },
+  { name: "Gafas Demo 27", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[27] },
+  { name: "Gafas Demo 28", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[28] },
+  { name: "Gafas Demo 29", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[29] },
+  { name: "Gafas Demo 30", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[30] },
+  { name: "Gafas Demo 31", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[31] },
+  { name: "Gafas Demo 32", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[32] },
+  { name: "Gafas Demo 33", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[33] },
+  { name: "Gafas Demo 34", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[34] },
+  { name: "Gafas Demo 35", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[35] },
+  { name: "Gafas Demo 36", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[36] },
+  { name: "Gafas Demo 37", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[37] },
+  { name: "Gafas Demo 38", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[38] },
+  { name: "Gafas Demo 39", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[39] },
+  { name: "Gafas Demo 40", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[40] },
+  { name: "Gafas Demo 41", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[41] },
+  { name: "Gafas Demo 42", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[42] },
 ];
 
 const productNames = {
@@ -246,34 +299,35 @@ function generateProducts(): Product[] {
     const totalForCategory = category.id === "cat-1" ? gafasCatalog.length : 6;
 
     for (let i = 0; i < totalForCategory; i++) {
-      const productName = catNames[i];
-      const productMaterial = catMaterials[i] ?? "Acetato";
       const productDetails = category.id === "cat-1" ? gafasCatalog[i] : null;
-      const productSizes = category.id === "cat-1" ? productDetails?.sizes ?? sizeSets[i % sizeSets.length] : sizeSets[i % sizeSets.length];
-      const productPrice = category.id === "cat-1" ? productDetails?.price ?? 180 : 39 + i * 5;
-      const productDescription = category.id === "cat-1" ? productDetails?.description ?? "Modelo con diseño premium y gran comodidad." : `Diseño exclusivo de ${category.name}. ${productName} perfecto para disfrutar del estilo.`;
+      const productName = category.id === "cat-1" ? productDetails?.name ?? "Gafas Demo" : catNames[i];
+      const productMaterial = category.id === "cat-1" ? productDetails?.material ?? "Material demo" : catMaterials[i] ?? "Acetato";
+      const productSizes = category.id === "cat-1" ? [] : sizeSets[i % sizeSets.length];
+      const productPrice = category.id === "cat-1" ? 95000 : 39 + i * 5;
+      const productDescription = category.id === "cat-1" ? productDetails?.description ?? "Referencia demo" : `Diseño exclusivo de ${category.name}. ${productName} perfecto para disfrutar del estilo.`;
+      const productImageUrl = category.id === "cat-1" ? productDetails?.image_url ?? gafasImageMap[1] : images[(i + catIndex) % images.length];
 
       products.push({
         id: `prod-${productId}`,
         category_id: category.id,
         name: productName,
-        slug: catNames[i].toLowerCase().replace(/\s+/g, "-"),
-        material: catMaterials[i],
-        short_description: `Descripción breve del producto ${catNames[i]}.`,
-        description: `Diseño exclusivo de ${category.name}. ${catNames[i]} perfecto para disfrutar del estilo.`,
-        price: 39 + i * 5,
+        slug: productName.toLowerCase().replace(/\s+/g, "-"),
+        material: productMaterial,
+        short_description: productDescription,
+        description: productDescription,
+        price: productPrice,
         compare_price: 49 + i * 8,
-        sizes: sizeSets[i % sizeSets.length],
-        image_url: images[(i + catIndex) % images.length],
+        sizes: productSizes,
+        image_url: productImageUrl,
         storage_path: null,
         gallery: [
-          { url: images[(i + catIndex) % images.length] },
-          { url: images[(i + catIndex + 1) % images.length] },
+          { url: productImageUrl },
+          { url: category.id === "cat-1" ? gafasImageMap[Math.min(i + 2, 42)] ?? productImageUrl : images[(i + catIndex + 1) % images.length] },
         ],
         badge: i % 3 === 0 ? "Nuevo" : i % 3 === 1 ? "Oferta" : null,
         stock_status: i % 4 === 0 ? "low" : "available",
         purchase_url: null,
-        whatsapp_message: `Hola, quiero consultar ${catNames[i]}`,
+        whatsapp_message: `Hola, quiero consultar ${productName}`,
         layout_variant: "auto",
         is_active: true,
         is_featured: i === 0,

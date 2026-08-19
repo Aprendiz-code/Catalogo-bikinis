@@ -7,11 +7,12 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatPriceCOP(value: number | string) {
   const amount = typeof value === "string" ? Number(value) : value;
-  return new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
+  const formatted = new Intl.NumberFormat("es-CO", {
+    minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(amount);
+
+  return `$ ${formatted}`;
 }
 
 export function formatSizes(sizes: string[] | null | undefined) {

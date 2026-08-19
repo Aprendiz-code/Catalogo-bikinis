@@ -1,9 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { MessageCircle } from "lucide-react";
-import { buildWhatsAppUrl, cn, formatPriceCOP, formatSizes, resolveLayout } from "@/lib/utils";
+import { buildWhatsAppUrl, cn, formatPriceCOP, resolveLayout } from "@/lib/utils";
 import type { LayoutVariant, Product } from "@/types/database";
 
 type Props = {
@@ -53,7 +52,7 @@ export function ProductEditorialCard({
         {product.image_url ? (
           <Image
             src={product.image_url}
-            alt={product.name}
+            alt={`${product.name} - ${product.short_description || product.description || "Gafas"}`}
             fill
             className="object-cover"
             sizes="(max-width: 768px) 90vw, 420px"
@@ -82,9 +81,6 @@ export function ProductEditorialCard({
           </h3>
           <p className="font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f4d4a]">
             Precio: {formatPriceCOP(product.price)}
-          </p>
-          <p className="pt-2 text-base text-[#2f4d4a] sm:text-lg">
-            Tallas disponibles: {formatSizes(product.sizes)}
           </p>
           {product.short_description ? (
             <p className="text-sm leading-relaxed text-[#2f4d4a]">
