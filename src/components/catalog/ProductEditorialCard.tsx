@@ -37,7 +37,7 @@ export function ProductEditorialCard({
   return (
     <article
       className={cn(
-        "grid items-stretch gap-0 overflow-visible border border-[#3d5f5a]/60 bg-[#f3f0eb]",
+        "product-card grid items-stretch gap-0 overflow-visible border border-[#3d5f5a]/20 bg-[#fffdfb]",
         compact ? "grid-cols-1" : "grid-cols-[1fr_1fr]",
         !imageLeft && !compact && "[&>*:first-child]:order-2 [&>*:last-child]:order-1",
       )}
@@ -45,7 +45,7 @@ export function ProductEditorialCard({
     >
       <div
         className={cn(
-          "relative flex min-h-[220px] items-center justify-center overflow-hidden bg-[#EEF3F2]",
+          "product-image-button relative flex min-h-[220px] items-center justify-center overflow-hidden bg-[#f3f1ed]",
           compact ? "min-h-[145px]" : "min-h-[220px]",
         )}
       >
@@ -67,6 +67,10 @@ export function ProductEditorialCard({
               className="object-contain object-center"
               sizes="(max-width: 768px) 100vw, 420px"
             />
+            <span className="image-zoom-label" aria-hidden="true">
+              <span className="text-base leading-none">⌕</span>
+              Ver detalle
+            </span>
           </button>
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#D6F0FF] via-[#FFF9C9] to-[#FFD6E8] px-4 text-center font-display text-2xl uppercase tracking-[0.12em] text-brand-ink/50">
@@ -77,32 +81,35 @@ export function ProductEditorialCard({
 
       <div
         className={cn(
-          "flex min-h-0 flex-col justify-center bg-[#f5f4ef] px-5 py-4 sm:min-h-[200px] sm:px-6 sm:py-5",
+          "product-info flex min-h-0 flex-col justify-center bg-[#fffdfb] px-5 py-4 sm:min-h-[200px] sm:px-6 sm:py-5",
           compact && "justify-start px-3 py-3",
           compact ? "border-t border-[#3d5f5a]/60" : "border border-[#3d5f5a]/60 border-l-0",
         )}
         style={{ boxSizing: "border-box", overflowWrap: "break-word", wordBreak: "break-word" }}
       >
         <div className="space-y-2 text-brand-ink" style={{ overflowWrap: "break-word", wordBreak: "break-word" }}>
+          <span className="product-reference">
+            {product.short_description || product.description || "Referencia demo"}
+          </span>
           <p className={cn(
-            "font-display text-[clamp(0.8rem,1.4vw,1.5rem)] italic leading-none text-[#3e5b56]",
+            "product-material font-display text-[clamp(0.8rem,1.4vw,1.5rem)] italic leading-none text-[#687b77]",
             compact && "text-[0.75rem]",
           )}>
             {product.material || "Algodón"}
           </p>
           <h3 className={cn(
-            "font-display text-[clamp(1.3rem,2.8vw,2.6rem)] uppercase leading-[0.9] tracking-[-0.05em] text-[#2f4d4a]",
+            "product-name font-display text-[clamp(1.3rem,2.8vw,2.6rem)] uppercase leading-[0.9] tracking-[-0.05em] text-[#315252]",
             compact && "text-[1.25rem]",
           )}>
             {product.name}
           </h3>
           <p className={cn(
-            "font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f4d4a]",
+            "product-price font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f2424]",
             compact && "text-[1rem]",
           )}>
             Precio: {formatPriceCOP(product.price)}
           </p>
-          {product.short_description ? (
+          {product.category_id !== "cat-1" && product.short_description ? (
             <p className={cn(
               "text-sm leading-relaxed text-[#2f4d4a]",
               compact && "text-[0.72rem] leading-tight",

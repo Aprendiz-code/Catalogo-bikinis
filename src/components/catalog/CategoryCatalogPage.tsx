@@ -22,7 +22,7 @@ export function CategoryCatalogPage({
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const media = window.matchMedia("(max-width: 767px)");
+    const media = window.matchMedia("(max-width: 768px)");
     const update = () => setIsMobile(media.matches);
 
     update();

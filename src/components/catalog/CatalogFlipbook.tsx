@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { CatalogPageRenderer } from "@/components/catalog/CatalogPageRenderer";
 import { FlipbookControls } from "@/components/catalog/FlipbookControls";
+import { cn } from "@/lib/utils";
 import type { FlipbookPage } from "@/types/database";
 
 const HTMLFlipBook = dynamic(() => import("react-pageflip"), {
@@ -28,11 +29,24 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
   const containerRef = useRef<HTMLDivElement>(null);
   const previewTriggerRef = useRef<HTMLElement | null>(null);
   const previewCloseRef = useRef<HTMLButtonElement>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [page, setPage] = useState(1);
   const [bookSize, setBookSize] = useState({ width: 420, height: 594 });
   const [preview, setPreview] = useState<{ src: string; alt: string } | null>(null);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewOpen, setPreviewOpen] = useState(false);
 
   const total = pages.length;
+
+  const closePreview = useCallback(() => {
+    if (!previewVisible || closeTimerRef.current) return;
+    setPreviewOpen(false);
+    closeTimerRef.current = setTimeout(() => {
+      setPreviewVisible(false);
+      setPreview(null);
+      closeTimerRef.current = null;
+    }, 430);
+  }, [previewVisible]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -43,22 +57,27 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
       const trigger = target.closest<HTMLElement>("[data-image-preview-src]");
       if (!trigger || !container.contains(trigger)) return;
 
+      event.stopPropagation();
+      event.preventDefault();
+
       const src = trigger.dataset.imagePreviewSrc;
       if (!src) return;
       previewTriggerRef.current = trigger;
       setPreview({ src, alt: trigger.dataset.imagePreviewAlt || "Vista previa de gafas" });
+      setPreviewVisible(true);
+      requestAnimationFrame(() => setPreviewOpen(true));
     };
 
-    container.addEventListener("click", onImageClick);
-    return () => container.removeEventListener("click", onImageClick);
+    container.addEventListener("click", onImageClick, true);
+    return () => container.removeEventListener("click", onImageClick, true);
   }, []);
 
   useEffect(() => {
-    if (!preview) return;
+    if (!previewVisible) return;
 
     const previousOverflow = document.body.style.overflow;
     const onEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setPreview(null);
+      if (event.key === "Escape") closePreview();
     };
 
     document.body.style.overflow = "hidden";
@@ -67,19 +86,24 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onEscape);
     };
-  }, [preview]);
+  }, [closePreview, previewVisible]);
 
   useEffect(() => {
-    if (preview) {
-      previewCloseRef.current?.focus();
-      return;
+    if (previewVisible) {
+      requestAnimationFrame(() => previewCloseRef.current?.focus());
+      const focusTimer = setTimeout(() => previewCloseRef.current?.focus(), 80);
+      return () => clearTimeout(focusTimer);
     }
 
     const trigger = previewTriggerRef.current;
     if (!trigger) return;
     requestAnimationFrame(() => trigger.focus());
     previewTriggerRef.current = null;
-  }, [preview]);
+  }, [previewVisible]);
+
+  useEffect(() => () => {
+    if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  }, []);
 
   useEffect(() => {
     const update = () => {
@@ -179,14 +203,15 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
         {renderedPages}
       </HTMLFlipBook>
 
-      {preview ? (
+      {previewVisible && preview ? (
         <div
-          className="fixed inset-0 z-[9999] grid place-items-center bg-black/85 p-3 sm:p-6"
+          className={cn("image-preview-modal", previewOpen && "is-open")}
           role="presentation"
-          onClick={() => setPreview(null)}
+          onClick={closePreview}
         >
+          <div className="image-preview-backdrop" aria-hidden="true" />
           <section
-            className="relative flex h-[88vh] w-[min(96vw,900px)] items-center justify-center"
+            className="image-preview-content"
             role="dialog"
             aria-modal="true"
             aria-label="Vista previa de gafas"
@@ -196,7 +221,7 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
               type="button"
               ref={previewCloseRef}
               className="absolute right-1 top-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white text-3xl leading-none text-[#2f2424] shadow-lg sm:-right-3 sm:-top-3"
-              onClick={() => setPreview(null)}
+              onClick={closePreview}
               aria-label="Cerrar vista previa"
             >
               ×
@@ -206,7 +231,7 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
               alt={preview.alt}
               fill
               sizes="96vw"
-              className="object-contain object-center"
+              className="image-preview-content-image object-contain object-center"
             />
           </section>
         </div>
