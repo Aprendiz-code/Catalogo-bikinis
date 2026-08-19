@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { cn, formatPriceCOP, formatSizes, resolveLayout } from "@/lib/utils";
+import { MessageCircle } from "lucide-react";
+import { buildWhatsAppUrl, cn, formatPriceCOP, formatSizes, resolveLayout } from "@/lib/utils";
 import type { LayoutVariant, Product } from "@/types/database";
 
 type Props = {
@@ -24,79 +24,85 @@ export function ProductEditorialCard({
   compact = false,
   coverAlternate = false,
 }: Props) {
-  const [imageFailed, setImageFailed] = useState(false);
   const layout = coverAlternate
     ? index % 2 === 0
       ? "image-right"
       : "image-left"
     : resolveLayout(index, product.layout_variant, categoryDefaultLayout);
   const imageLeft = layout === "image-left";
+  const wa = buildWhatsAppUrl(
+    whatsapp,
+    product.whatsapp_message || `Hola, quiero consultar ${product.name}`,
+  );
 
   return (
     <article
       className={cn(
-        "grid h-full items-stretch overflow-hidden border border-[#d9c8cb] bg-[#fffdfd] shadow-[0_8px_20px_rgba(94,61,71,0.06)]",
-        compact ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2",
-        !imageLeft && !compact && "[&>*:first-child]:order-2 [&>*:last-child]:order-1 sm:[&>*:first-child]:order-2 sm:[&>*:last-child]:order-1",
+        "grid items-stretch gap-0 overflow-hidden border border-[#3d5f5a]/60 bg-[#f3f0eb]",
+        compact ? "grid-cols-2" : "grid-cols-[1.15fr_1fr]",
+        !imageLeft && !compact && "[&>*:first-child]:order-2 [&>*:last-child]:order-1",
       )}
+      style={{ boxSizing: "border-box" }}
     >
-      <div className="relative min-h-[190px] overflow-hidden bg-[radial-gradient(circle_at_top,_#fef6f8,_#f1e7eb_58%,_#e9ebf2)]">
-        {product.image_url && !imageFailed ? (
+      <div
+        className={cn(
+          "relative overflow-hidden bg-[#EEF3F2]",
+          compact ? "min-h-[200px]" : "min-h-[220px]",
+        )}
+      >
+        {product.image_url ? (
           <Image
             src={product.image_url}
             alt={product.name}
             fill
             className="object-cover"
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
-            onError={() => setImageFailed(true)}
+            sizes="(max-width: 768px) 90vw, 420px"
+            style={{ objectFit: "cover" }}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#f7e7ee_0%,#f4efe9_50%,#ebf2ff_100%)] px-4 text-center font-display text-[0.9rem] uppercase tracking-[0.2em] text-[#52454f]">
+          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#D6F0FF] via-[#FFF9C9] to-[#FFD6E8] px-4 text-center font-display text-2xl uppercase tracking-[0.12em] text-brand-ink/50">
             {product.name}
           </div>
         )}
       </div>
 
-      <div className="flex min-h-[200px] flex-col justify-between bg-[#fffdfd] px-3 py-3 text-[#352d2d] sm:px-4 sm:py-4">
-        <div className="space-y-2 text-left">
-          <p className="font-display text-[0.72rem] uppercase tracking-[0.22em] text-[#7a5f62]">
-            {product.material || "Policarbonato"}
+      <div
+        className={cn(
+          "flex min-h-[200px] flex-col justify-center bg-[#f5f4ef] px-5 py-4 sm:px-6 sm:py-5",
+          compact ? "border-l border-[#3d5f5a]/60" : "border border-[#3d5f5a]/60 border-l-0",
+        )}
+        style={{ boxSizing: "border-box", overflowWrap: "break-word", wordBreak: "break-word" }}
+      >
+        <div className="space-y-2 text-brand-ink" style={{ overflowWrap: "break-word", wordBreak: "break-word" }}>
+          <p className="font-display text-[clamp(0.8rem,1.4vw,1.5rem)] italic leading-none text-[#3e5b56]">
+            {product.material || "Algodón"}
           </p>
-          <h3 className="font-display text-[1.2rem] uppercase leading-[0.95] tracking-[-0.06em] text-[#2a2727] sm:text-[1.35rem]">
+          <h3 className="font-display text-[clamp(1.3rem,2.8vw,2.6rem)] uppercase leading-[0.9] tracking-[-0.05em] text-[#2f4d4a]">
             {product.name}
           </h3>
-          <p className="font-display text-[1.15rem] font-semibold tracking-[-0.04em] text-[#3d2f38]">
-            {formatPriceCOP(product.price)}
+          <p className="font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f4d4a]">
+            Precio: {formatPriceCOP(product.price)}
           </p>
-          <p className="text-[0.67rem] uppercase tracking-[0.18em] text-[#68585d]">
-            Tallas: {formatSizes(product.sizes)}
+          <p className="pt-2 text-base text-[#2f4d4a] sm:text-lg">
+            Tallas disponibles: {formatSizes(product.sizes)}
           </p>
           {product.short_description ? (
-            <p className="text-[0.72rem] leading-relaxed text-[#5b4a4d]">
+            <p className="text-sm leading-relaxed text-[#2f4d4a]">
               {product.short_description}
             </p>
           ) : null}
         </div>
 
-        <div className="mt-3 flex items-center justify-between gap-2 border-t border-[#eadfe2] pt-2">
-          {product.purchase_url ? (
-            <Link
-              href={product.purchase_url}
-              className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-[#4a3e46] underline-offset-2 transition hover:underline"
-            >
-              Ver detalle
-            </Link>
-          ) : (
-            <span className="text-[0.62rem] uppercase tracking-[0.18em] text-[#85757a]">Disponible</span>
-          )}
-          {whatsapp ? (
+        <div className="mt-4 flex flex-wrap items-center gap-3">
+          {wa ? (
             <a
-              href={`https://wa.me/${whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(`Hola, quiero consultar ${product.name}`)}`}
+              href={wa}
               target="_blank"
               rel="noreferrer"
-              className="rounded-full border border-[#d6b6be] bg-[#fdf1f3] px-2.5 py-1 text-[0.58rem] font-medium uppercase tracking-[0.18em] text-[#4a3640] transition hover:bg-[#fbe5eb]"
+              className="inline-flex items-center gap-1 text-[11px] font-medium uppercase tracking-wide text-brand-ink underline-offset-2 hover:underline"
             >
-              Consultar
+              <MessageCircle className="h-3.5 w-3.5" />
+              WhatsApp
             </a>
           ) : null}
         </div>

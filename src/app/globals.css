@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  box-sizing: border-box;
+}
+
 :root {
   --color-primary: #405352;
   --color-secondary: #ffffff;
@@ -25,6 +29,20 @@ body {
 .catalog-sheet {
   @apply relative mx-auto flex h-full w-full flex-col overflow-hidden bg-white;
   box-shadow: inset 0 0 0 1px rgba(64, 83, 82, 0.04);
+}
+
+.catalog-sheet *,
+.catalog-sheet *::before,
+.catalog-sheet *::after {
+  box-sizing: border-box;
+}
+
+.catalog-sheet p,
+.catalog-sheet h2,
+.catalog-sheet h3,
+.catalog-sheet a {
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 .catalog-outer {
