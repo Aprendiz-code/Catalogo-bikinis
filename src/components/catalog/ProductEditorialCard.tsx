@@ -38,15 +38,15 @@ export function ProductEditorialCard({
     <article
       className={cn(
         "grid items-stretch gap-0 overflow-hidden border border-[#3d5f5a]/60 bg-[#f3f0eb]",
-        compact ? "grid-cols-2" : "grid-cols-[1.15fr_1fr]",
+        compact ? "grid-cols-1" : "grid-cols-[1fr_1fr]",
         !imageLeft && !compact && "[&>*:first-child]:order-2 [&>*:last-child]:order-1",
       )}
       style={{ boxSizing: "border-box" }}
     >
       <div
         className={cn(
-          "relative overflow-hidden bg-[#EEF3F2]",
-          compact ? "min-h-[200px]" : "min-h-[220px]",
+          "relative flex min-h-[220px] items-center justify-center overflow-hidden bg-[#EEF3F2]",
+          compact ? "min-h-[220px]" : "min-h-[220px]",
         )}
       >
         {product.image_url ? (
@@ -54,9 +54,8 @@ export function ProductEditorialCard({
             src={product.image_url}
             alt={`${product.name} - ${product.short_description || product.description || "Gafas"}`}
             fill
-            className="object-cover"
+            className="object-contain object-center"
             sizes="(max-width: 768px) 90vw, 420px"
-            style={{ objectFit: "cover" }}
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#D6F0FF] via-[#FFF9C9] to-[#FFD6E8] px-4 text-center font-display text-2xl uppercase tracking-[0.12em] text-brand-ink/50">
@@ -68,7 +67,7 @@ export function ProductEditorialCard({
       <div
         className={cn(
           "flex min-h-[200px] flex-col justify-center bg-[#f5f4ef] px-5 py-4 sm:px-6 sm:py-5",
-          compact ? "border-l border-[#3d5f5a]/60" : "border border-[#3d5f5a]/60 border-l-0",
+          compact ? "border-t border-[#3d5f5a]/60" : "border border-[#3d5f5a]/60 border-l-0",
         )}
         style={{ boxSizing: "border-box", overflowWrap: "break-word", wordBreak: "break-word" }}
       >
