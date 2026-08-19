@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import Image from "next/image";
 import { CatalogPageRenderer } from "@/components/catalog/CatalogPageRenderer";
 import { FlipbookControls } from "@/components/catalog/FlipbookControls";
 import type { FlipbookPage } from "@/types/database";
@@ -25,10 +26,60 @@ type Props = {
 export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }: Props) {
   const bookRef = useRef<{ pageFlip: () => { flipNext: () => void; flipPrev: () => void; turnToPage: (n: number) => void; getCurrentPageIndex: () => number } } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const previewTriggerRef = useRef<HTMLElement | null>(null);
+  const previewCloseRef = useRef<HTMLButtonElement>(null);
   const [page, setPage] = useState(1);
   const [bookSize, setBookSize] = useState({ width: 420, height: 594 });
+  const [preview, setPreview] = useState<{ src: string; alt: string } | null>(null);
 
   const total = pages.length;
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const onImageClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      const trigger = target.closest<HTMLElement>("[data-image-preview-src]");
+      if (!trigger || !container.contains(trigger)) return;
+
+      const src = trigger.dataset.imagePreviewSrc;
+      if (!src) return;
+      previewTriggerRef.current = trigger;
+      setPreview({ src, alt: trigger.dataset.imagePreviewAlt || "Vista previa de gafas" });
+    };
+
+    container.addEventListener("click", onImageClick);
+    return () => container.removeEventListener("click", onImageClick);
+  }, []);
+
+  useEffect(() => {
+    if (!preview) return;
+
+    const previousOverflow = document.body.style.overflow;
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setPreview(null);
+    };
+
+    document.body.style.overflow = "hidden";
+    document.addEventListener("keydown", onEscape);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener("keydown", onEscape);
+    };
+  }, [preview]);
+
+  useEffect(() => {
+    if (preview) {
+      previewCloseRef.current?.focus();
+      return;
+    }
+
+    const trigger = previewTriggerRef.current;
+    if (!trigger) return;
+    requestAnimationFrame(() => trigger.focus());
+    previewTriggerRef.current = null;
+  }, [preview]);
 
   useEffect(() => {
     const update = () => {
@@ -80,7 +131,7 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
     () =>
       pages.map((item) => (
         <div key={item.key} className="bg-white" data-density="hard">
-          <div className="h-full w-full overflow-hidden">
+          <div className="h-full w-full overflow-hidden max-md:overflow-y-auto">
             <CatalogPageRenderer page={item} />
           </div>
         </div>
@@ -127,6 +178,39 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
       >
         {renderedPages}
       </HTMLFlipBook>
+
+      {preview ? (
+        <div
+          className="fixed inset-0 z-[9999] grid place-items-center bg-black/85 p-3 sm:p-6"
+          role="presentation"
+          onClick={() => setPreview(null)}
+        >
+          <section
+            className="relative flex h-[88vh] w-[min(96vw,900px)] items-center justify-center"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Vista previa de gafas"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              ref={previewCloseRef}
+              className="absolute right-1 top-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white text-3xl leading-none text-[#2f2424] shadow-lg sm:-right-3 sm:-top-3"
+              onClick={() => setPreview(null)}
+              aria-label="Cerrar vista previa"
+            >
+              ×
+            </button>
+            <Image
+              src={preview.src}
+              alt={preview.alt}
+              fill
+              sizes="96vw"
+              className="object-contain object-center"
+            />
+          </section>
+        </div>
+      ) : null}
 
       <FlipbookControls
         page={page}

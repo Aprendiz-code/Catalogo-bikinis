@@ -34,7 +34,7 @@ export function CategoryCatalogPage({
 
   return (
     <div className="catalog-outer h-full" style={{ backgroundColor: category.background_color }}>
-      <div className="catalog-sheet px-[6%] py-[5%]" style={{ color: category.text_color }}>
+      <div className="catalog-sheet max-md:overflow-y-auto px-[6%] py-[5%]" style={{ color: category.text_color }}>
         <header className="mb-[4%] text-center">
           <h2 className="display-title text-[clamp(2.1rem,4vw,4.4rem)] uppercase tracking-[-0.04em]">
             {category.name}

@@ -37,7 +37,7 @@ export function ProductEditorialCard({
   return (
     <article
       className={cn(
-        "grid items-stretch gap-0 overflow-hidden border border-[#3d5f5a]/60 bg-[#f3f0eb]",
+        "grid items-stretch gap-0 overflow-visible border border-[#3d5f5a]/60 bg-[#f3f0eb]",
         compact ? "grid-cols-1" : "grid-cols-[1fr_1fr]",
         !imageLeft && !compact && "[&>*:first-child]:order-2 [&>*:last-child]:order-1",
       )}
@@ -46,17 +46,28 @@ export function ProductEditorialCard({
       <div
         className={cn(
           "relative flex min-h-[220px] items-center justify-center overflow-hidden bg-[#EEF3F2]",
-          compact ? "min-h-[220px]" : "min-h-[220px]",
+          compact ? "min-h-[145px]" : "min-h-[220px]",
         )}
       >
         {product.image_url ? (
-          <Image
-            src={product.image_url}
-            alt={`${product.name} - ${product.short_description || product.description || "Gafas"}`}
-            fill
-            className="object-contain object-center"
-            sizes="(max-width: 768px) 90vw, 420px"
-          />
+          <button
+            type="button"
+            className={cn(
+              "relative h-full w-full cursor-zoom-in border-0 bg-transparent p-0",
+              compact ? "min-h-[145px]" : "min-h-[220px]",
+            )}
+            data-image-preview-src={product.image_url}
+            data-image-preview-alt={`${product.name} - ${product.short_description || product.description || "Gafas"}`}
+            aria-label={`Ampliar imagen de ${product.name}`}
+          >
+            <Image
+              src={product.image_url}
+              alt={`${product.name} - ${product.short_description || product.description || "Gafas"}`}
+              fill
+              className="object-contain object-center"
+              sizes="(max-width: 768px) 100vw, 420px"
+            />
+          </button>
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#D6F0FF] via-[#FFF9C9] to-[#FFD6E8] px-4 text-center font-display text-2xl uppercase tracking-[0.12em] text-brand-ink/50">
             {product.name}
@@ -66,29 +77,42 @@ export function ProductEditorialCard({
 
       <div
         className={cn(
-          "flex min-h-[200px] flex-col justify-center bg-[#f5f4ef] px-5 py-4 sm:px-6 sm:py-5",
+          "flex min-h-0 flex-col justify-center bg-[#f5f4ef] px-5 py-4 sm:min-h-[200px] sm:px-6 sm:py-5",
+          compact && "justify-start px-3 py-3",
           compact ? "border-t border-[#3d5f5a]/60" : "border border-[#3d5f5a]/60 border-l-0",
         )}
         style={{ boxSizing: "border-box", overflowWrap: "break-word", wordBreak: "break-word" }}
       >
         <div className="space-y-2 text-brand-ink" style={{ overflowWrap: "break-word", wordBreak: "break-word" }}>
-          <p className="font-display text-[clamp(0.8rem,1.4vw,1.5rem)] italic leading-none text-[#3e5b56]">
+          <p className={cn(
+            "font-display text-[clamp(0.8rem,1.4vw,1.5rem)] italic leading-none text-[#3e5b56]",
+            compact && "text-[0.75rem]",
+          )}>
             {product.material || "Algodón"}
           </p>
-          <h3 className="font-display text-[clamp(1.3rem,2.8vw,2.6rem)] uppercase leading-[0.9] tracking-[-0.05em] text-[#2f4d4a]">
+          <h3 className={cn(
+            "font-display text-[clamp(1.3rem,2.8vw,2.6rem)] uppercase leading-[0.9] tracking-[-0.05em] text-[#2f4d4a]",
+            compact && "text-[1.25rem]",
+          )}>
             {product.name}
           </h3>
-          <p className="font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f4d4a]">
+          <p className={cn(
+            "font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f4d4a]",
+            compact && "text-[1rem]",
+          )}>
             Precio: {formatPriceCOP(product.price)}
           </p>
           {product.short_description ? (
-            <p className="text-sm leading-relaxed text-[#2f4d4a]">
+            <p className={cn(
+              "text-sm leading-relaxed text-[#2f4d4a]",
+              compact && "text-[0.72rem] leading-tight",
+            )}>
               {product.short_description}
             </p>
           ) : null}
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-3">
+        <div className={cn("mt-4 flex flex-wrap items-center gap-3", compact && "mt-2") }>
           {wa ? (
             <a
               href={wa}
