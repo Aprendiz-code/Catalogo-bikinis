@@ -51,7 +51,7 @@ export default async function CatalogoPage() {
           message={
             error instanceof Error
               ? error.message
-              : "No se pudo cargar el catálogo. Configura Supabase y aplica las migraciones."
+              : "No se pudo cargar el catálogo con los datos locales."
           }
         />
       </main>

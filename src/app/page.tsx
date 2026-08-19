@@ -6,9 +6,7 @@ export default async function HomePage() {
   try {
     const settings = await getCatalogSettings();
     if (settings?.brand_name) brand = settings.brand_name;
-  } catch {
-    // Supabase aún no configurado
-  }
+  } catch {}
 
   return (
     <main className="relative min-h-screen overflow-hidden">
