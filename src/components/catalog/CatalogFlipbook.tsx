@@ -107,8 +107,15 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
 
   useEffect(() => {
     const update = () => {
-      const maxWidth = Math.min(window.innerWidth - 32, width * 0.72, 560);
       const ratio = height / width;
+      const isMobile = window.matchMedia("(max-width: 768px)").matches;
+      const availableHeight = window.innerHeight - (isMobile ? 142 : 0);
+      const maxWidth = Math.min(
+        window.innerWidth - (isMobile ? 20 : 32),
+        width * 0.72,
+        isMobile ? availableHeight / ratio : Number.POSITIVE_INFINITY,
+        560,
+      );
       setBookSize({ width: maxWidth, height: maxWidth * ratio });
     };
     update();

@@ -235,6 +235,40 @@ body {
     overflow-x: hidden;
   }
 
+  .catalog-route {
+    height: 100dvh;
+    min-height: 100dvh;
+    overflow: hidden;
+  }
+
+  .catalog-route > div {
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .catalog-route-content {
+    display: flex;
+    min-height: 0;
+    height: calc(100% - 52px);
+    flex-direction: column;
+    padding-bottom: 4px;
+    padding-top: 4px;
+  }
+
+  .catalog-route-heading {
+    flex-shrink: 0;
+    margin-bottom: 5px;
+  }
+
+  .catalog-route-content > .relative {
+    min-height: 0;
+    flex: 1;
+  }
+
+  .catalog-route-content .shadow-page {
+    max-height: 100%;
+  }
+
   .category-page {
     height: 100dvh;
     min-height: 100dvh;

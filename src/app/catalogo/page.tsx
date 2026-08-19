@@ -18,7 +18,7 @@ export default async function CatalogoPage() {
 
     return (
       <main
-        className="min-h-screen"
+        className="catalog-route min-h-screen"
         style={
           {
             "--color-primary": settings.primary_color,
@@ -29,8 +29,8 @@ export default async function CatalogoPage() {
       >
         <div className="bg-[linear-gradient(180deg,#F7F4EE_0%,#EEF6FF_45%,#FFF7FB_100%)]">
           <Header brandName={settings.brand_name} />
-          <section className="mx-auto w-full max-w-6xl px-2 sm:px-4 md:px-6 pb-8 sm:pb-12 md:pb-16 pt-2 sm:pt-4 md:pt-6">
-            <div className="mb-4 sm:mb-6 md:mb-8 text-center">
+          <section className="catalog-route-content mx-auto w-full max-w-6xl px-2 pb-8 pt-2 sm:px-4 sm:pb-12 sm:pt-4 md:px-6 md:pb-16 md:pt-6">
+            <div className="catalog-route-heading mb-4 text-center sm:mb-6 md:mb-8">
               <p className="script-title text-sm sm:text-base md:text-lg">{settings.collection_name}</p>
               <h1 className="display-title mt-1 text-2xl sm:text-3xl md:text-4xl">Catálogo</h1>
             </div>
