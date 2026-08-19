@@ -207,8 +207,6 @@ const gafasCatalog = [
   { name: "Gafas Faro", material: "Acetato", price: 203, sizes: ["XS", "S", "M", "L"], description: "Luz, estructura y detalles de moda." },
   { name: "Gafas Gema", material: "Policarbonato", price: 169, sizes: ["One Size"], description: "Versión ligera con impacto visual inmediato." },
   { name: "Gafas Heli", material: "Acetato", price: 192, sizes: ["S", "M", "L", "XL"], description: "Comodidad casi invisible y gran presencia." },
-  { name: "Gafas Isla", material: "Policarbonato", price: 166, sizes: ["S", "M", "L"], description: "Todo listo para viajar en estilo." },
-  { name: "Gafas Jade", material: "Acetato", price: 208, sizes: ["S", "M", "L"], description: "Juego de líneas limpias y esencias premium." },
 ];
 
 const productNames = {
