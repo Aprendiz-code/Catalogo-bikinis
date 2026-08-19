@@ -162,8 +162,10 @@ export const mockCategories: Category[] = [
   },
 ];
 
+const gafasProductNames = Array.from({ length: 42 }, (_, index) => `Gafas ${index + 1}`);
+
 const productNames = {
-  "cat-1": ["Gafas Horizon", "Gafas Nube", "Gafas Tropic", "Gafas Sunset", "Gafas Marina", "Gafas Palmera"],
+  "cat-1": gafasProductNames,
   "cat-2": ["Salida Linen", "Salida Gasa", "Salida Algodón", "Salida Seda", "Salida Viscosa", "Salida Lino"],
   "cat-3": ["Bikini Arena", "Bikini Coral", "Bikini Brisa", "Bikini Marea", "Bikini Aurora", "Bikini Stella"],
   "cat-4": ["Sombrero Palma", "Sombrero Sol", "Sombrero Costa", "Sombrero Playa", "Sombrero Ala Ancha", "Sombrero Tropical"],
@@ -196,8 +198,9 @@ function generateProducts(): Product[] {
   mockCategories.forEach((category, catIndex) => {
     const catNames = productNames[category.id as keyof typeof productNames];
     const catMaterials = materials[category.id as keyof typeof materials];
+    const totalForCategory = category.id === "cat-1" ? 42 : 6;
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < totalForCategory; i++) {
       products.push({
         id: `prod-${productId}`,
         category_id: category.id,
