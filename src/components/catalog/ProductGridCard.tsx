@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { formatPriceCOP, formatSizes } from "@/lib/utils";
+import { formatPriceCOP } from "@/lib/utils";
 import type { Product } from "@/types/database";
 
 type Props = {

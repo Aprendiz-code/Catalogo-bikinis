@@ -1,50 +1,89 @@
 import type { CatalogSettings, Category, Product, CatalogPage } from "@/types/database";
 
-const resolveGafasAsset = (fileName: string) => new URL(`../../img/Gafas/${fileName}`, import.meta.url).href;
+import gafas1 from "../../img/Gafas/gafas 1.jpeg";
+import gafas2 from "../../img/Gafas/gafas 2.jpeg";
+import gafas3 from "../../img/Gafas/gafas 3.jpeg";
+import gafas4 from "../../img/Gafas/gafas 4.jpeg";
+import gafas5 from "../../img/Gafas/gafas 5.jpeg";
+import gafas6 from "../../img/Gafas/gafas 6.jpeg";
+import gafas7 from "../../img/Gafas/gafas 7.jpeg";
+import gafas8 from "../../img/Gafas/gafas 8.jpeg";
+import gafas9 from "../../img/Gafas/gafas 9.jpeg";
+import gafas10 from "../../img/Gafas/gafas 10.jpeg";
+import gafas11 from "../../img/Gafas/gafas 11.jpeg";
+import gafas12 from "../../img/Gafas/gafas 12.jpeg";
+import gafas13 from "../../img/Gafas/gafas 13.jpeg";
+import gafas14 from "../../img/Gafas/gafas 14.jpeg";
+import gafas15 from "../../img/Gafas/gafas 15.jpeg";
+import gafas16 from "../../img/Gafas/gafas 16.jpeg";
+import gafas17 from "../../img/Gafas/gafas 17.jpeg";
+import gafas18 from "../../img/Gafas/gafas 18.jpeg";
+import gafas19 from "../../img/Gafas/gafas 19.jpeg";
+import gafas20 from "../../img/Gafas/gafas 20.jpeg";
+import gafas21 from "../../img/Gafas/gafas 21.jpeg";
+import gafas22 from "../../img/Gafas/gafas 22.jpeg";
+import gafas23 from "../../img/Gafas/gafas 23.jpeg";
+import gafas24 from "../../img/Gafas/gafas 24.jpeg";
+import gafas25 from "../../img/Gafas/gafas 25.jpeg";
+import gafas26 from "../../img/Gafas/gafas 26.jpeg";
+import gafas27 from "../../img/Gafas/gafas 27.jpeg";
+import gafas28 from "../../img/Gafas/gafas 28.jpeg";
+import gafas29 from "../../img/Gafas/gafas 29.jpeg";
+import gafas30 from "../../img/Gafas/gafas 30.jpeg";
+import gafas32 from "../../img/Gafas/gafas 32.jpeg";
+import gafas33 from "../../img/Gafas/gafas 33.jpeg";
+import gafas34 from "../../img/Gafas/gafas 34.jpeg";
+import gafas35 from "../../img/Gafas/gafas 35.jpeg";
+import gafas36 from "../../img/Gafas/gafas 36.jpeg";
+import gafas37 from "../../img/Gafas/gafas 37.jpeg";
+import gafas38 from "../../img/Gafas/gafas 38.jpeg";
+import gafas40 from "../../img/Gafas/gafas 40.jpeg";
+import gafas41 from "../../img/Gafas/gafas 41.jpeg";
+import gafas42 from "../../img/Gafas/gafas 42.jpeg";
 
 const gafasImageMap: Record<number, string> = {
-  1: resolveGafasAsset("gafas 1.jpeg"),
-  2: resolveGafasAsset("gafas 2.jpeg"),
-  3: resolveGafasAsset("gafas 3.jpeg"),
-  4: resolveGafasAsset("gafas 4.jpeg"),
-  5: resolveGafasAsset("gafas 5.jpeg"),
-  6: resolveGafasAsset("gafas 6.jpeg"),
-  7: resolveGafasAsset("gafas 7.jpeg"),
-  8: resolveGafasAsset("gafas 8.jpeg"),
-  9: resolveGafasAsset("gafas 9.jpeg"),
-  10: resolveGafasAsset("gafas 10.jpeg"),
-  11: resolveGafasAsset("gafas 11.jpeg"),
-  12: resolveGafasAsset("gafas 12.jpeg"),
-  13: resolveGafasAsset("gafas 13.jpeg"),
-  14: resolveGafasAsset("gafas 14.jpeg"),
-  15: resolveGafasAsset("gafas 15.jpeg"),
-  16: resolveGafasAsset("gafas 16.jpeg"),
-  17: resolveGafasAsset("gafas 17.jpeg"),
-  18: resolveGafasAsset("gafas 18.jpeg"),
-  19: resolveGafasAsset("gafas 19.jpeg"),
-  20: resolveGafasAsset("gafas 20.jpeg"),
-  21: resolveGafasAsset("gafas 21.jpeg"),
-  22: resolveGafasAsset("gafas 22.jpeg"),
-  23: resolveGafasAsset("gafas 23.jpeg"),
-  24: resolveGafasAsset("gafas 24.jpeg"),
-  25: resolveGafasAsset("gafas 25.jpeg"),
-  26: resolveGafasAsset("gafas 26.jpeg"),
-  27: resolveGafasAsset("gafas 27.jpeg"),
-  28: resolveGafasAsset("gafas 28.jpeg"),
-  29: resolveGafasAsset("gafas 29.jpeg"),
-  30: resolveGafasAsset("gafas 30.jpeg"),
-  31: resolveGafasAsset("gafas 30.jpeg"),
-  32: resolveGafasAsset("gafas 32.jpeg"),
-  33: resolveGafasAsset("gafas 33.jpeg"),
-  34: resolveGafasAsset("gafas 34.jpeg"),
-  35: resolveGafasAsset("gafas 35.jpeg"),
-  36: resolveGafasAsset("gafas 36.jpeg"),
-  37: resolveGafasAsset("gafas 37.jpeg"),
-  38: resolveGafasAsset("gafas 38.jpeg"),
-  39: resolveGafasAsset("gafas 38.jpeg"),
-  40: resolveGafasAsset("gafas 40.jpeg"),
-  41: resolveGafasAsset("gafas 41.jpeg"),
-  42: resolveGafasAsset("gafas 42.jpeg"),
+  1: gafas1.src,
+  2: gafas2.src,
+  3: gafas3.src,
+  4: gafas4.src,
+  5: gafas5.src,
+  6: gafas6.src,
+  7: gafas7.src,
+  8: gafas8.src,
+  9: gafas9.src,
+  10: gafas10.src,
+  11: gafas11.src,
+  12: gafas12.src,
+  13: gafas13.src,
+  14: gafas14.src,
+  15: gafas15.src,
+  16: gafas16.src,
+  17: gafas17.src,
+  18: gafas18.src,
+  19: gafas19.src,
+  20: gafas20.src,
+  21: gafas21.src,
+  22: gafas22.src,
+  23: gafas23.src,
+  24: gafas24.src,
+  25: gafas25.src,
+  26: gafas26.src,
+  27: gafas27.src,
+  28: gafas28.src,
+  29: gafas29.src,
+  30: gafas30.src,
+  31: gafas30.src,
+  32: gafas32.src,
+  33: gafas33.src,
+  34: gafas34.src,
+  35: gafas35.src,
+  36: gafas36.src,
+  37: gafas37.src,
+  38: gafas38.src,
+  39: gafas38.src,
+  40: gafas40.src,
+  41: gafas41.src,
+  42: gafas42.src,
 };
 
 if (typeof console !== "undefined") {
