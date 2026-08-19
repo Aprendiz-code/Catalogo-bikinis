@@ -155,7 +155,7 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
     () =>
       pages.map((item) => (
         <div key={item.key} className="bg-white" data-density="hard">
-          <div className="h-full w-full overflow-hidden max-md:overflow-y-auto">
+          <div className="h-full w-full overflow-hidden max-md:overflow-hidden">
             <CatalogPageRenderer page={item} />
           </div>
         </div>

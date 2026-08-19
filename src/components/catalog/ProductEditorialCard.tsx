@@ -39,7 +39,7 @@ export function ProductEditorialCard({
       className={cn(
         "product-card grid items-stretch gap-0 overflow-visible border border-[#3d5f5a]/20 bg-[#fffdfb]",
         compact ? "grid-cols-1" : "grid-cols-[1fr_1fr]",
-        !imageLeft && !compact && "[&>*:first-child]:order-2 [&>*:last-child]:order-1",
+        !imageLeft && "[&>*:first-child]:order-2 [&>*:last-child]:order-1",
       )}
       style={{ boxSizing: "border-box" }}
     >
