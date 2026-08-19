@@ -133,6 +133,12 @@ body {
   text-transform: uppercase;
 }
 
+.product-reference-title {
+  margin: 0;
+  overflow-wrap: break-word;
+  word-break: normal;
+}
+
 .image-preview-modal {
   position: fixed;
   inset: 0;
@@ -236,6 +242,11 @@ body {
     min-height: auto;
     overflow: visible;
     padding: 18px;
+  }
+
+  .product-reference-title {
+    font-size: clamp(1.6rem, 9vw, 2.3rem);
+    line-height: 1;
   }
 
   .image-zoom-label {

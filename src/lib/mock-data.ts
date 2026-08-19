@@ -163,7 +163,7 @@ export const mockCategories: Category[] = [
     background_color: colors[0].bg,
     text_color: colors[0].text,
     layout_variant: "auto",
-    products_per_page: 3,
+    products_per_page: 2,
     is_active: true,
     display_order: 1,
     created_at: new Date().toISOString(),

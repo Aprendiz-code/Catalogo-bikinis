@@ -88,20 +88,11 @@ export function ProductEditorialCard({
         style={{ boxSizing: "border-box", overflowWrap: "break-word", wordBreak: "break-word" }}
       >
         <div className="space-y-2 text-brand-ink" style={{ overflowWrap: "break-word", wordBreak: "break-word" }}>
-          <span className="product-reference">
-            {product.short_description || product.description || "Referencia demo"}
-          </span>
-          <p className={cn(
-            "product-material font-display text-[clamp(0.8rem,1.4vw,1.5rem)] italic leading-none text-[#687b77]",
-            compact && "text-[0.75rem]",
-          )}>
-            {product.material || "Algodón"}
-          </p>
           <h3 className={cn(
-            "product-name font-display text-[clamp(1.3rem,2.8vw,2.6rem)] uppercase leading-[0.9] tracking-[-0.05em] text-[#315252]",
+            "product-reference-title product-name font-display text-[clamp(1.3rem,2.8vw,2.6rem)] uppercase leading-[0.9] tracking-[-0.05em] text-[#315252]",
             compact && "text-[1.25rem]",
           )}>
-            {product.name}
+            {product.short_description || product.description || "Referencia demo"}
           </h3>
           <p className={cn(
             "product-price font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f2424]",
