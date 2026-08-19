@@ -5,7 +5,7 @@ import type {
   Product,
 } from "@/types/database";
 
-import coverImage from "../../../img/Diseño sin título (6).png";
+import coverImage from "../../../img/Portada.png";
 
 type Props = {
   page: CatalogPage;

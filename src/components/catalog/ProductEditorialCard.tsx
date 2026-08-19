@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn, formatPriceCOP, formatSizes, resolveLayout } from "@/lib/utils";
@@ -23,6 +24,7 @@ export function ProductEditorialCard({
   compact = false,
   coverAlternate = false,
 }: Props) {
+  const [imageFailed, setImageFailed] = useState(false);
   const layout = coverAlternate
     ? index % 2 === 0
       ? "image-right"
@@ -33,62 +35,69 @@ export function ProductEditorialCard({
   return (
     <article
       className={cn(
-        "grid h-full items-stretch gap-0 border border-[#3d5f5a]/60 bg-[#f3f0eb]",
-        compact ? "grid-cols-2" : "grid-cols-2 sm:grid-cols-[1.15fr_1fr]",
+        "grid h-full items-stretch overflow-hidden border border-[#d9c8cb] bg-[#fffdfd] shadow-[0_8px_20px_rgba(94,61,71,0.06)]",
+        compact ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2",
         !imageLeft && !compact && "[&>*:first-child]:order-2 [&>*:last-child]:order-1 sm:[&>*:first-child]:order-2 sm:[&>*:last-child]:order-1",
       )}
     >
-      <div
-        className={cn(
-          "relative min-h-[120px] overflow-hidden bg-[#EEF3F2] sm:min-h-[135px] md:min-h-[155px]",
-          imageLeft ? "" : "",
-          compact ? "" : "",
-        )}
-      >
-        {product.image_url ? (
+      <div className="relative min-h-[190px] overflow-hidden bg-[radial-gradient(circle_at_top,_#fef6f8,_#f1e7eb_58%,_#e9ebf2)]">
+        {product.image_url && !imageFailed ? (
           <Image
             src={product.image_url}
             alt={product.name}
             fill
             className="object-cover"
             sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 420px"
+            onError={() => setImageFailed(true)}
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-[#D6F0FF] via-[#FFF9C9] to-[#FFD6E8] px-4 text-center font-display text-lg sm:text-2xl uppercase tracking-[0.12em] text-brand-ink/50">
+          <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(135deg,#f7e7ee_0%,#f4efe9_50%,#ebf2ff_100%)] px-4 text-center font-display text-[0.9rem] uppercase tracking-[0.2em] text-[#52454f]">
             {product.name}
           </div>
         )}
       </div>
 
-      <div
-        className={cn(
-          "flex min-h-[120px] flex-col justify-center bg-[#f5f4ef] px-2 py-2 sm:min-h-[135px] sm:px-3 sm:py-2 md:min-h-[155px] md:px-3 md:py-3",
-          compact ? "border-l border-[#3d5f5a]/60" : "border-t sm:border-t-0 sm:border-l border-[#3d5f5a]/60",
-        )}
-      >
-        <div className="space-y-1 text-center text-brand-ink">
-          <p className="font-display text-[clamp(0.6rem,0.95vw,1rem)] italic leading-snug text-[#3e5b56]">
-            {product.material || "Algodón"}
+      <div className="flex min-h-[200px] flex-col justify-between bg-[#fffdfd] px-3 py-3 text-[#352d2d] sm:px-4 sm:py-4">
+        <div className="space-y-2 text-left">
+          <p className="font-display text-[0.72rem] uppercase tracking-[0.22em] text-[#7a5f62]">
+            {product.material || "Policarbonato"}
           </p>
-          <h3 className="font-display text-[clamp(0.8rem,1.45vw,1.7rem)] uppercase leading-tight tracking-[-0.05em] text-[#2f4d4a]">
+          <h3 className="font-display text-[1.2rem] uppercase leading-[0.95] tracking-[-0.06em] text-[#2a2727] sm:text-[1.35rem]">
             {product.name}
           </h3>
-          <p className="font-display text-[clamp(0.7rem,1.2vw,1.25rem)] leading-snug tracking-[-0.04em] text-[#2f4d4a]">
-            Precio: {formatPriceCOP(product.price)}
+          <p className="font-display text-[1.15rem] font-semibold tracking-[-0.04em] text-[#3d2f38]">
+            {formatPriceCOP(product.price)}
           </p>
-          <p className="text-[clamp(0.5rem,0.85vw,0.75rem)] leading-snug text-[#2f4d4a]">
+          <p className="text-[0.67rem] uppercase tracking-[0.18em] text-[#68585d]">
             Tallas: {formatSizes(product.sizes)}
           </p>
+          {product.short_description ? (
+            <p className="text-[0.72rem] leading-relaxed text-[#5b4a4d]">
+              {product.short_description}
+            </p>
+          ) : null}
         </div>
 
-        <div className="mt-2 flex flex-col items-center justify-center gap-1 sm:mt-3 sm:gap-2">
+        <div className="mt-3 flex items-center justify-between gap-2 border-t border-[#eadfe2] pt-2">
           {product.purchase_url ? (
             <Link
               href={product.purchase_url}
-              className="text-[10px] sm:text-[11px] font-medium uppercase tracking-wide text-brand-ink underline-offset-2 hover:underline"
+              className="text-[0.62rem] font-medium uppercase tracking-[0.18em] text-[#4a3e46] underline-offset-2 transition hover:underline"
             >
-              Ver catálogo
+              Ver detalle
             </Link>
+          ) : (
+            <span className="text-[0.62rem] uppercase tracking-[0.18em] text-[#85757a]">Disponible</span>
+          )}
+          {whatsapp ? (
+            <a
+              href={`https://wa.me/${whatsapp.replace(/\D/g, "")}?text=${encodeURIComponent(`Hola, quiero consultar ${product.name}`)}`}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-full border border-[#d6b6be] bg-[#fdf1f3] px-2.5 py-1 text-[0.58rem] font-medium uppercase tracking-[0.18em] text-[#4a3640] transition hover:bg-[#fbe5eb]"
+            >
+              Consultar
+            </a>
           ) : null}
         </div>
       </div>

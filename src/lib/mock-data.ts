@@ -164,8 +164,55 @@ export const mockCategories: Category[] = [
 
 const gafasProductNames = Array.from({ length: 42 }, (_, index) => `Gafas ${index + 1}`);
 
+const gafasCatalog = [
+  { name: "Gafas Horizon", material: "Policarbonato", price: 149, sizes: ["S", "M", "L"], description: "Lentes ligeras con acabado urbano y versátil." },
+  { name: "Gafas Nube", material: "Acetato", price: 169, sizes: ["XS", "S", "M", "L"], description: "Estética elegante para días soleados y looks premium." },
+  { name: "Gafas Tropic", material: "Policarbonato", price: 179, sizes: ["S", "M", "L", "XL"], description: "Un diseño tropical con detalle moderno." },
+  { name: "Gafas Sunset", material: "Acetato", price: 189, sizes: ["S", "M", "L"], description: "Tonos cálidos y una silueta contemporánea." },
+  { name: "Gafas Marina", material: "Policarbonato", price: 172, sizes: ["M", "L", "XL"], description: "Perfectas para admirar el mar con estilo." },
+  { name: "Gafas Palmera", material: "Acetato", price: 165, sizes: ["S", "M", "L"], description: "Un look relajado con energía de verano." },
+  { name: "Gafas Aurora", material: "Policarbonato", price: 182, sizes: ["XS", "S", "M", "L"], description: "Perfil delicado, brillo premium y gran confort." },
+  { name: "Gafas Coral", material: "Acetato", price: 198, sizes: ["S", "M", "L", "XL"], description: "Color intenso y detalles sofisticados." },
+  { name: "Gafas Eclipse", material: "Policarbonato", price: 174, sizes: ["S", "M", "L"], description: "Minimalistas, luminosas y con carácter." },
+  { name: "Gafas Riviera", material: "Acetato", price: 185, sizes: ["S", "M", "L", "XL"], description: "Un acabado refinado para looks urbanos." },
+  { name: "Gafas Sol", material: "Policarbonato", price: 156, sizes: ["One Size"], description: "Una opción fácil y estilosa para cada outfit." },
+  { name: "Gafas Ocean", material: "Acetato", price: 193, sizes: ["S", "M", "L"], description: "Diseño con presencia y gran equilibrio visual." },
+  { name: "Gafas Brisa", material: "Policarbonato", price: 168, sizes: ["XS", "S", "M", "L"], description: "Ligereza y esencia elegante para todas las horas." },
+  { name: "Gafas Vogue", material: "Acetato", price: 210, sizes: ["S", "M", "L", "XL"], description: "Silueta statement con detalle editorial." },
+  { name: "Gafas Estela", material: "Policarbonato", price: 175, sizes: ["S", "M", "L"], description: "Ajuste moderno y acabado impecable." },
+  { name: "Gafas Aster", material: "Acetato", price: 188, sizes: ["XS", "S", "M", "L"], description: "Un estilo sobrio con brillo femenino." },
+  { name: "Gafas Cielo", material: "Policarbonato", price: 160, sizes: ["One Size"], description: "Frescas, cómodas y listas para cualquier plan." },
+  { name: "Gafas Duna", material: "Acetato", price: 181, sizes: ["S", "M", "L", "XL"], description: "Acabado premium con energía costera." },
+  { name: "Gafas Delta", material: "Policarbonato", price: 172, sizes: ["S", "M", "L"], description: "Visual moderna con gran adaptabilidad." },
+  { name: "Gafas Llama", material: "Acetato", price: 201, sizes: ["S", "M", "L"], description: "Una mirada audaz y enriquecida en detalle." },
+  { name: "Gafas Lune", material: "Policarbonato", price: 163, sizes: ["M", "L", "XL"], description: "Discreta, femenina y muy fácil de combinar." },
+  { name: "Gafas Marea", material: "Acetato", price: 177, sizes: ["S", "M", "L", "XL"], description: "Estilo marinero con un toque elegante." },
+  { name: "Gafas Nilo", material: "Policarbonato", price: 171, sizes: ["XS", "S", "M", "L"], description: "Formato limpio, ligero y sofisticado." },
+  { name: "Gafas Orla", material: "Acetato", price: 196, sizes: ["S", "M", "L"], description: "Una apuesta con personalidad editorial." },
+  { name: "Gafas Pera", material: "Policarbonato", price: 158, sizes: ["One Size"], description: "Céntrate en el confort y el estilo diario." },
+  { name: "Gafas Rayo", material: "Acetato", price: 184, sizes: ["S", "M", "L"], description: "Reflejo de la última tendencia de sol." },
+  { name: "Gafas Siroco", material: "Policarbonato", price: 170, sizes: ["M", "L", "XL"], description: "Diseño con forma esbelta y moderna." },
+  { name: "Gafas Tulum", material: "Acetato", price: 209, sizes: ["S", "M", "L", "XL"], description: "Mención de lujo para un look de vacaciones." },
+  { name: "Gafas Ula", material: "Policarbonato", price: 155, sizes: ["S", "M", "L"], description: "Minimalismo con tendencia y gran practicidad." },
+  { name: "Gafas Vela", material: "Acetato", price: 194, sizes: ["XS", "S", "M", "L"], description: "Cierto aire romántico con brillo premium." },
+  { name: "Gafas Willa", material: "Policarbonato", price: 173, sizes: ["S", "M", "L"], description: "Elegancia ligera para una imagen refinada." },
+  { name: "Gafas Xara", material: "Acetato", price: 187, sizes: ["M", "L", "XL"], description: "Forma moderna con un detalle editorial." },
+  { name: "Gafas Yara", material: "Policarbonato", price: 176, sizes: ["One Size"], description: "Un modelo capaz de vestir cualquier look." },
+  { name: "Gafas Zenith", material: "Acetato", price: 205, sizes: ["S", "M", "L", "XL"], description: "Perfil elegante con gran presencia visual." },
+  { name: "Gafas Alba", material: "Policarbonato", price: 162, sizes: ["XS", "S", "M", "L"], description: "Atractivo clásico y de rápida combinación." },
+  { name: "Gafas Beryl", material: "Acetato", price: 199, sizes: ["S", "M", "L"], description: "Color de tendencia y acabado muy cuidado." },
+  { name: "Gafas Cora", material: "Policarbonato", price: 167, sizes: ["M", "L", "XL"], description: "Silueta femenina, cómoda y segura." },
+  { name: "Gafas Dalia", material: "Acetato", price: 191, sizes: ["S", "M", "L", "XL"], description: "Intensidad estilística para uso diario." },
+  { name: "Gafas Eros", material: "Policarbonato", price: 180, sizes: ["S", "M", "L"], description: "Fusión de modernidad y refinamiento." },
+  { name: "Gafas Faro", material: "Acetato", price: 203, sizes: ["XS", "S", "M", "L"], description: "Luz, estructura y detalles de moda." },
+  { name: "Gafas Gema", material: "Policarbonato", price: 169, sizes: ["One Size"], description: "Versión ligera con impacto visual inmediato." },
+  { name: "Gafas Heli", material: "Acetato", price: 192, sizes: ["S", "M", "L", "XL"], description: "Comodidad casi invisible y gran presencia." },
+  { name: "Gafas Isla", material: "Policarbonato", price: 166, sizes: ["S", "M", "L"], description: "Todo listo para viajar en estilo." },
+  { name: "Gafas Jade", material: "Acetato", price: 208, sizes: ["S", "M", "L"], description: "Juego de líneas limpias y esencias premium." },
+];
+
 const productNames = {
-  "cat-1": gafasProductNames,
+  "cat-1": gafasCatalog.map((product) => product.name),
   "cat-2": ["Salida Linen", "Salida Gasa", "Salida Algodón", "Salida Seda", "Salida Viscosa", "Salida Lino"],
   "cat-3": ["Bikini Arena", "Bikini Coral", "Bikini Brisa", "Bikini Marea", "Bikini Aurora", "Bikini Stella"],
   "cat-4": ["Sombrero Palma", "Sombrero Sol", "Sombrero Costa", "Sombrero Playa", "Sombrero Ala Ancha", "Sombrero Tropical"],
@@ -174,7 +221,7 @@ const productNames = {
 };
 
 const materials = {
-  "cat-1": ["Policarbonato", "Acetato", "Policarbonato", "Acetato", "Policarbonato", "Acetato"],
+  "cat-1": gafasCatalog.map((product) => product.material),
   "cat-2": ["Lino", "Viscosa", "Algodón", "Seda", "Viscosa", "Lino"],
   "cat-3": ["Poliéster", "Nailon", "Poliéster", "Elastano", "Poliéster", "Nailon"],
   "cat-4": ["Paja", "Algodón", "Rafia", "Paja", "Algodón", "Paja"],
@@ -198,13 +245,20 @@ function generateProducts(): Product[] {
   mockCategories.forEach((category, catIndex) => {
     const catNames = productNames[category.id as keyof typeof productNames];
     const catMaterials = materials[category.id as keyof typeof materials];
-    const totalForCategory = category.id === "cat-1" ? 42 : 6;
+    const totalForCategory = category.id === "cat-1" ? gafasCatalog.length : 6;
 
     for (let i = 0; i < totalForCategory; i++) {
+      const productName = catNames[i];
+      const productMaterial = catMaterials[i] ?? "Acetato";
+      const productDetails = category.id === "cat-1" ? gafasCatalog[i] : null;
+      const productSizes = category.id === "cat-1" ? productDetails?.sizes ?? sizeSets[i % sizeSets.length] : sizeSets[i % sizeSets.length];
+      const productPrice = category.id === "cat-1" ? productDetails?.price ?? 180 : 39 + i * 5;
+      const productDescription = category.id === "cat-1" ? productDetails?.description ?? "Modelo con diseño premium y gran comodidad." : `Diseño exclusivo de ${category.name}. ${productName} perfecto para disfrutar del estilo.`;
+
       products.push({
         id: `prod-${productId}`,
         category_id: category.id,
-        name: catNames[i],
+        name: productName,
         slug: catNames[i].toLowerCase().replace(/\s+/g, "-"),
         material: catMaterials[i],
         short_description: `Descripción breve del producto ${catNames[i]}.`,
