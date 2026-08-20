@@ -504,6 +504,18 @@ body {
   }
 }
 
+@media (hover: hover) and (pointer: fine) {
+  .product-card .image-zoom-label {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .product-card:hover .image-zoom-label {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .product-card,
   .product-image-button img,
