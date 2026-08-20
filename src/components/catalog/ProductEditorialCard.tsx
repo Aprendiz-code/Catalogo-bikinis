@@ -1,24 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { MessageCircle } from "lucide-react";
-import { cn, buildWhatsAppUrl, formatPriceCOP } from "@/lib/utils";
+import { cn, formatPriceCOP } from "@/lib/utils";
 import type { Product } from "@/types/database";
 
 type Props = {
   product: Product;
-  whatsapp?: string | null;
 };
 
-export function ProductEditorialCard({
-  product,
-  whatsapp,
-}: Props) {
-  const wa = buildWhatsAppUrl(
-    whatsapp,
-    product.whatsapp_message || `Hola, quiero consultar ${product.name}`,
-  );
-
+export function ProductEditorialCard({ product }: Props) {
   return (
     <article
       className={cn(
@@ -77,19 +67,6 @@ export function ProductEditorialCard({
           </p>
         </div>
 
-        <div className="mt-4 flex flex-wrap items-center gap-3">
-          {wa ? (
-            <a
-              href={wa}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1 text-[11px] font-medium uppercase tracking-wide text-brand-ink underline-offset-2 hover:underline"
-            >
-              <MessageCircle className="h-3.5 w-3.5" />
-              WhatsApp
-            </a>
-          ) : null}
-        </div>
       </div>
     </article>
   );

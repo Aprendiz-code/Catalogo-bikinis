@@ -1,12 +1,11 @@
 "use client";
 
 import { ProductEditorialCard } from "@/components/catalog/ProductEditorialCard";
-import type { CatalogSettings, Category, Product } from "@/types/database";
+import type { Category, Product } from "@/types/database";
 
 type Props = {
   category: Category;
   products: Product[];
-  settings: CatalogSettings;
   pageIndex?: number;
   totalPages?: number;
 };
@@ -14,7 +13,6 @@ type Props = {
 export function CategoryCatalogPage({
   category,
   products,
-  settings,
   pageIndex = 1,
   totalPages = 1,
 }: Props) {
@@ -45,7 +43,6 @@ export function CategoryCatalogPage({
               <ProductEditorialCard
                 key={product.id}
                 product={product}
-                whatsapp={settings.whatsapp}
               />
             ))
           )}

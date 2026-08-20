@@ -11,7 +11,6 @@ export function CatalogPageRenderer({ page }: { page: FlipbookPage }) {
       <CategoryCatalogPage
         category={page.category}
         products={page.products}
-        settings={page.settings}
         pageIndex={page.pageIndex}
         totalPages={page.totalPages}
       />
