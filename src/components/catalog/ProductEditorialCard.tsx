@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { Maximize2 } from "lucide-react";
 import { cn, formatPriceCOP } from "@/lib/utils";
 import type { Product } from "@/types/database";
 
@@ -37,7 +38,7 @@ export function ProductEditorialCard({ product }: Props) {
               sizes="(max-width: 768px) 100vw, 420px"
             />
             <span className="image-zoom-label" aria-hidden="true">
-              <span className="text-base leading-none">⌕</span>
+              <Maximize2 className="h-3.5 w-3.5" strokeWidth={2.2} />
               Ver detalle
             </span>
           </button>
