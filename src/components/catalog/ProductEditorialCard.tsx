@@ -38,7 +38,7 @@ export function ProductEditorialCard({ product }: Props) {
               sizes="(max-width: 768px) 100vw, 420px"
             />
             <span className="image-zoom-label" aria-hidden="true">
-              <Maximize2 className="h-3.5 w-3.5" strokeWidth={2.2} />
+              <Maximize2 className="h-3.5 w-3.5 opacity-[0.65]" strokeWidth={2.2} />
               Ver detalle
             </span>
           </button>
