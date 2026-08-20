@@ -1,6 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { buildWhatsAppUrl } from "@/lib/utils";
 
 export function FloatingQuickActions() {
   const pathname = usePathname();
@@ -8,10 +9,15 @@ export function FloatingQuickActions() {
 
   if (!showWhatsApp) return null;
 
+  const whatsappUrl = buildWhatsAppUrl(
+    "+573174291254",
+    "Hola, quiero hacer mi pedido",
+  );
+
   return (
     <div className="floating-actions">
       <a
-        href="https://wa.me/?text=Hola%20quiero%20hacer%20mi%20pedido"
+        href={whatsappUrl || "https://wa.me/573174291254"}
         target="_blank"
         rel="noreferrer"
         className="whatsapp-float"

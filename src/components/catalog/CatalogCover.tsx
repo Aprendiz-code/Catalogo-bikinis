@@ -100,20 +100,20 @@ export function CatalogCover({
 
               <div className="space-y-1 sm:space-y-2">
                 <p className="font-display text-xs sm:text-sm md:text-base uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white">
-                  {websiteLabel || "SOLEA BIKINI"}
+                  {websiteLabel || "SR GLOW BEACH WEAR"}
                 </p>
 
                 <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-4 font-display text-xs sm:text-sm uppercase tracking-[0.15em] sm:tracking-[0.2em] text-white/90 px-2 sm:px-0">
                   {settings.instagram ? (
                     <p>{settings.instagram}</p>
                   ) : (
-                    <p>@soleabikini</p>
+                    <p>@srglow_</p>
                   )}
 
                   {settings.phone ? (
                     <p>{settings.phone}</p>
                   ) : (
-                    <p>+34 600 000 000</p>
+                    <p>+57 317 4291254</p>
                   )}
                 </div>
               </div>
