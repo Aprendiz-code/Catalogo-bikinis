@@ -46,16 +46,5 @@ export function buildWhatsAppUrl(phone: string | null | undefined, message?: str
   return `https://wa.me/${cleaned}?text=${text}`;
 }
 
-export function resolveLayout(
-  index: number,
-  variant: "image-left" | "image-right" | "auto" = "auto",
-  categoryDefault: "image-left" | "image-right" | "auto" = "image-left",
-): "image-left" | "image-right" {
-  const effective = variant === "auto" ? categoryDefault : variant;
-  if (effective === "image-right") return "image-right";
-  if (effective === "image-left") return "image-left";
-  return index % 2 === 0 ? "image-left" : "image-right";
-}
-
 export const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 export const MAX_IMAGE_BYTES = 5 * 1024 * 1024;

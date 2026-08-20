@@ -75,13 +75,6 @@ export function ProductEditorialCard({
           )}>
             Precio: {formatPriceCOP(product.price)}
           </p>
-          {product.category_id !== "cat-1" && product.short_description ? (
-            <p className={cn(
-              "text-sm leading-relaxed text-[#2f4d4a]",
-            )}>
-              {product.short_description}
-            </p>
-          ) : null}
         </div>
 
         <div className="mt-4 flex flex-wrap items-center gap-3">
