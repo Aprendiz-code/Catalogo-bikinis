@@ -52,12 +52,10 @@ export function CategoryCatalogPage({
               Próximamente productos en esta categoría.
             </div>
           ) : (
-            visibleProducts.map((product, index) => (
+            visibleProducts.map((product) => (
               <ProductEditorialCard
                 key={product.id}
                 product={product}
-                index={index}
-                categoryDefaultLayout={category.layout_variant}
                 whatsapp={settings.whatsapp}
                 compact={isMobile}
               />

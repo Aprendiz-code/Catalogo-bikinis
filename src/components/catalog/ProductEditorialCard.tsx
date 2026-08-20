@@ -2,33 +2,20 @@
 
 import Image from "next/image";
 import { MessageCircle } from "lucide-react";
-import { buildWhatsAppUrl, cn, formatPriceCOP, resolveLayout } from "@/lib/utils";
-import type { LayoutVariant, Product } from "@/types/database";
+import { buildWhatsAppUrl, cn, formatPriceCOP } from "@/lib/utils";
+import type { Product } from "@/types/database";
 
 type Props = {
   product: Product;
-  index: number;
-  categoryDefaultLayout?: LayoutVariant;
   whatsapp?: string | null;
   compact?: boolean;
-  /** Si true, alterna empezando con ficha a la izquierda (estilo portada). */
-  coverAlternate?: boolean;
 };
 
 export function ProductEditorialCard({
   product,
-  index,
-  categoryDefaultLayout = "image-left",
   whatsapp,
   compact = false,
-  coverAlternate = false,
 }: Props) {
-  const layout = coverAlternate
-    ? index % 2 === 0
-      ? "image-right"
-      : "image-left"
-    : resolveLayout(index, product.layout_variant, categoryDefaultLayout);
-  const imageLeft = layout === "image-left";
   const wa = buildWhatsAppUrl(
     whatsapp,
     product.whatsapp_message || `Hola, quiero consultar ${product.name}`,
@@ -37,15 +24,13 @@ export function ProductEditorialCard({
   return (
     <article
       className={cn(
-        "product-card grid items-stretch gap-0 overflow-visible border border-[#3d5f5a]/20 bg-[#fffdfb]",
-        compact ? "grid-cols-1" : "grid-cols-[1fr_1fr]",
-        !imageLeft && "[&>*:first-child]:order-2 [&>*:last-child]:order-1",
+        "product-card grid grid-cols-[minmax(0,1fr)_minmax(0,1fr)] items-stretch gap-0 overflow-hidden border border-[#3d5f5a]/20 bg-[#fffdfb]",
       )}
       style={{ boxSizing: "border-box" }}
     >
       <div
         className={cn(
-          "product-image-button relative flex min-h-[220px] items-center justify-center overflow-hidden bg-[#f3f1ed]",
+          "product-image-button relative col-start-1 row-start-1 flex min-h-[220px] items-center justify-center overflow-hidden bg-[#f3f1ed]",
           compact ? "min-h-[145px]" : "min-h-[220px]",
         )}
       >
@@ -81,9 +66,8 @@ export function ProductEditorialCard({
 
       <div
         className={cn(
-          "product-info flex min-h-0 flex-col justify-center bg-[#fffdfb] px-5 py-4 sm:min-h-[200px] sm:px-6 sm:py-5",
+          "product-info col-start-2 row-start-1 flex min-h-0 flex-col justify-center border border-[#3d5f5a]/60 border-l-0 bg-[#fffdfb] px-5 py-4 sm:min-h-[200px] sm:px-6 sm:py-5",
           compact && "justify-start px-3 py-3",
-          compact ? "border-t border-[#3d5f5a]/60" : "border border-[#3d5f5a]/60 border-l-0",
         )}
         style={{ boxSizing: "border-box", overflowWrap: "break-word", wordBreak: "break-word" }}
       >
