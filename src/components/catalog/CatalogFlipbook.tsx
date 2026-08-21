@@ -28,6 +28,8 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
   const bookRef = useRef<{ pageFlip: () => { flipNext: () => void; flipPrev: () => void; turnToPage: (n: number) => void; getCurrentPageIndex: () => number } } | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const previewTriggerRef = useRef<HTMLElement | null>(null);
+  const previewPageRef = useRef<number | null>(null);
+  const currentPageRef = useRef(0);
   const previewCloseRef = useRef<HTMLButtonElement>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [page, setPage] = useState(1);
@@ -42,8 +44,13 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
     if (!previewVisible || closeTimerRef.current) return;
     setPreviewOpen(false);
     closeTimerRef.current = setTimeout(() => {
+      const pageToRestore = previewPageRef.current;
+      if (pageToRestore !== null) {
+        bookRef.current?.pageFlip()?.turnToPage(pageToRestore);
+      }
       setPreviewVisible(false);
       setPreview(null);
+      previewPageRef.current = null;
       closeTimerRef.current = null;
     }, 430);
   }, [previewVisible]);
@@ -62,6 +69,7 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
 
       const src = trigger.dataset.imagePreviewSrc;
       if (!src) return;
+      previewPageRef.current = bookRef.current?.pageFlip()?.getCurrentPageIndex() ?? currentPageRef.current;
       previewTriggerRef.current = trigger;
       setPreview({ src, alt: trigger.dataset.imagePreviewAlt || "Vista previa de gafas" });
       setPreviewVisible(true);
@@ -197,7 +205,10 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
         maxShadowOpacity={0.25}
         showCover
         mobileScrollSupport
-        onFlip={(e: { data: number }) => setPage(e.data + 1)}
+        onFlip={(e: { data: number }) => {
+          currentPageRef.current = e.data;
+          setPage(e.data + 1);
+        }}
         className="shadow-page"
         style={{}}
         startZIndex={0}
@@ -214,7 +225,10 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
         <div
           className={cn("image-preview-modal", previewOpen && "is-open")}
           role="presentation"
-          onClick={closePreview}
+          onClick={(event) => {
+            event.stopPropagation();
+            closePreview();
+          }}
         >
           <div className="image-preview-backdrop" aria-hidden="true" />
           <section
@@ -228,7 +242,10 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
               type="button"
               ref={previewCloseRef}
               className="absolute right-1 top-1 z-10 flex h-12 w-12 items-center justify-center rounded-full bg-white text-3xl leading-none text-[#2f2424] shadow-lg sm:-right-3 sm:-top-3"
-              onClick={closePreview}
+              onClick={(event) => {
+                event.stopPropagation();
+                closePreview();
+              }}
               aria-label="Cerrar vista previa"
             >
               ×
