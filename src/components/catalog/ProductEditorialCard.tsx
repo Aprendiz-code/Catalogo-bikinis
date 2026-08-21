@@ -70,19 +70,26 @@ export function ProductEditorialCard({ product }: Props) {
             Precio: {formatPriceCOP(product.price)}
           </p>
           {product.sizes.length > 0 ? (
-            <label className="flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-brand-muted">
-              Talla
-              <select
-                value={selectedSize}
-                onChange={(event) => setSelectedSize(event.target.value)}
-                className="border border-brand-line bg-white px-2 py-1 text-xs text-brand-ink"
-                aria-label={`Seleccionar talla de ${product.name}`}
-              >
-                {product.sizes.map((size) => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </label>
+            <fieldset className="flex flex-wrap items-center gap-x-1 text-xs uppercase tracking-[0.12em] text-brand-muted">
+              <legend className="mr-1">Talla</legend>
+              {product.sizes.map((size, index) => (
+                <span key={size} className="inline-flex items-center gap-x-1">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedSize(size)}
+                    className={cn(
+                      "min-w-7 border-b px-1 py-0.5 text-xs text-brand-ink transition-colors",
+                      selectedSize === size ? "border-brand-ink font-semibold" : "border-transparent hover:border-brand-ink/50",
+                    )}
+                    aria-label={`Seleccionar talla ${size}`}
+                    aria-pressed={selectedSize === size}
+                  >
+                    {size}
+                  </button>
+                  {index < product.sizes.length - 1 ? <span aria-hidden="true">-</span> : null}
+                </span>
+              ))}
+            </fieldset>
           ) : null}
         </div>
 
