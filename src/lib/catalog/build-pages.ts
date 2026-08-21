@@ -71,7 +71,7 @@ export function buildFlipbookPages(params: {
       continue;
     }
 
-    const perPage = category.id === "cat-1" || category.id === "cat-5" || category.id === "cat-7"
+    const perPage = category.id === "cat-1" || category.id === "cat-3" || category.id === "cat-5" || category.id === "cat-7"
       ? 2
       : category.products_per_page || settings.products_per_page || 3;
     const chunks =

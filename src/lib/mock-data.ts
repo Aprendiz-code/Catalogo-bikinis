@@ -1,4 +1,6 @@
 import type { CatalogSettings, Category, Product, CatalogPage } from "@/types/database";
+import fs from "node:fs";
+import path from "node:path";
 
 import gafas1 from "../../img/Gafas/gafas 1.jpeg";
 import gafas2 from "../../img/Gafas/gafas 2.jpeg";
@@ -187,6 +189,47 @@ function parseSandaliaPlanaFilename(filename: string) {
   };
 }
 
+const bikiniFiles = fs
+  .readdirSync(path.join(process.cwd(), "img", "Bikinis"), { withFileTypes: true })
+  .filter((entry) => entry.isFile() && /\.(jpe?g|png|webp)$/i.test(entry.name))
+  .map((entry) => entry.name)
+  .sort((a, b) => a.localeCompare(b, "es", { numeric: true, sensitivity: "base" }));
+
+const bikiniImageUrls = bikiniFiles.map(
+  (file) => `/bikinis/${encodeURIComponent(file)}`,
+);
+
+function parseBikiniFilename(filename: string) {
+  const fullText = filename.replace(/\.[^.]+$/, "").trim();
+  const priceMatch = fullText.match(/\$\s*([\d.]+)|(?:^|\s)(\d{5,6})(?=\s*(?:talla|$))/i);
+  const sizeMatch = fullText.match(/tallas?\s+(.+)$/i);
+  const sizeText = sizeMatch?.[1]?.trim() || "";
+  const sizes = sizeText
+    ? sizeText.toLowerCase().includes("unica")
+      ? ["Talla única"]
+      : sizeText
+          .replace(/[()]/g, "")
+          .replace(/\s+y\s+/gi, ",")
+          .split(/\s*,\s*|\s+-\s+/)
+          .map((size) => size.trim().toUpperCase())
+          .filter(Boolean)
+    : [];
+  const priceText = priceMatch?.[1] || priceMatch?.[2];
+  const name = fullText
+    .replace(priceMatch?.[0] || "", "")
+    .replace(/\s*tallas?\s+.+$/i, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^./, (character) => character.toUpperCase());
+
+  return {
+    name: name || fullText,
+    description: fullText,
+    price: priceText ? Number(priceText.replace(/\./g, "")) : null,
+    sizes,
+  };
+}
+
 export function isMockDataEnabled() {
   const value = process.env.NEXT_PUBLIC_USE_MOCK_DATA;
   return value === undefined || value === "" ? true : value === "true";
@@ -284,13 +327,13 @@ export const mockCategories: Category[] = [
     name: "Bikinis",
     slug: "bikinis",
     description: "Diseños frescos para playa y piscina.",
-    image_url: images[2],
+    image_url: bikiniImageUrls[0] || images[2],
     storage_path: null,
     cover_image_url: null,
     background_color: colors[2].bg,
     text_color: colors[2].text,
     layout_variant: "image-right",
-    products_per_page: 3,
+    products_per_page: 2,
     is_active: true,
     display_order: 3,
     created_at: new Date().toISOString(),
@@ -446,10 +489,13 @@ function generateProducts(): Product[] {
     const catNames = productNames[category.id as keyof typeof productNames];
     const catMaterials = materials[category.id as keyof typeof materials];
     const isGafasCategory = category.id === "cat-1";
+    const isBikinisCategory = category.id === "cat-3";
     const isSandaliasCategory = category.id === "cat-5";
     const isSandaliasPlanasCategory = category.id === "cat-7";
     const totalForCategory = isGafasCategory
       ? gafasCatalog.length
+      : isBikinisCategory
+        ? bikiniFiles.length
       : isSandaliasCategory
         ? 70
         : isSandaliasPlanasCategory
@@ -458,8 +504,11 @@ function generateProducts(): Product[] {
 
     for (let i = 0; i < totalForCategory; i++) {
       const productDetails = isGafasCategory ? gafasCatalog[i] : null;
+      const parsedBikini = isBikinisCategory ? parseBikiniFilename(bikiniFiles[i]) : null;
       const productName = isGafasCategory
         ? productDetails?.name ?? "Gafas Demo"
+        : isBikinisCategory
+          ? parsedBikini?.name ?? "Bikini"
         : isSandaliasCategory
           ? "Sandalia plataforma"
           : isSandaliasPlanasCategory
@@ -467,6 +516,8 @@ function generateProducts(): Product[] {
           : catNames[i];
       const productMaterial = isGafasCategory
         ? productDetails?.material ?? "Material demo"
+        : isBikinisCategory
+          ? parsedBikini?.name ?? "Bikini"
         : isSandaliasCategory
           ? "Sandalia plataforma"
           : isSandaliasPlanasCategory
@@ -474,6 +525,8 @@ function generateProducts(): Product[] {
           : catMaterials[i] ?? "Acetato";
       const productSizes = isGafasCategory
         ? []
+        : isBikinisCategory
+          ? parsedBikini?.sizes || []
         : isSandaliasCategory
           ? ["35", "36", "37", "38", "39", "40"]
           : isSandaliasPlanasCategory
@@ -484,6 +537,8 @@ function generateProducts(): Product[] {
         : null;
       const productPrice = isGafasCategory
         ? 95000
+        : isBikinisCategory
+          ? parsedBikini?.price ?? 0
         : isSandaliasCategory
           ? 110000
           : isSandaliasPlanasCategory
@@ -491,6 +546,8 @@ function generateProducts(): Product[] {
             : 39 + i * 5;
       const productDescription = isGafasCategory
         ? productDetails?.description ?? "Referencia demo"
+        : isBikinisCategory
+          ? parsedBikini?.description ?? bikiniFiles[i]
         : isSandaliasCategory
           ? "Sandalia plataforma"
           : isSandaliasPlanasCategory
@@ -498,6 +555,8 @@ function generateProducts(): Product[] {
           : `Diseño exclusivo de ${category.name}. ${productName} perfecto para disfrutar del estilo.`;
       const productImageUrl = isGafasCategory
         ? productDetails?.image_url ?? gafasImageMap[1]
+        : isBikinisCategory
+          ? bikiniImageUrls[i]
         : isSandaliasCategory
           ? sandaliaImageUrls[i]
           : isSandaliasPlanasCategory
@@ -519,7 +578,7 @@ function generateProducts(): Product[] {
         storage_path: null,
         gallery: [
           { url: productImageUrl },
-          { url: isGafasCategory ? gafasImageMap[Math.min(i + 2, 42)] ?? productImageUrl : isSandaliasCategory ? sandaliaImageUrls[(i + 1) % sandaliaImageUrls.length] : isSandaliasPlanasCategory ? sandaliaPlanaImageUrls[(i + 1) % sandaliaPlanaImageUrls.length] : images[(i + catIndex + 1) % images.length] },
+          { url: isGafasCategory ? gafasImageMap[Math.min(i + 2, 42)] ?? productImageUrl : isBikinisCategory ? bikiniImageUrls[(i + 1) % bikiniImageUrls.length] : isSandaliasCategory ? sandaliaImageUrls[(i + 1) % sandaliaImageUrls.length] : isSandaliasPlanasCategory ? sandaliaPlanaImageUrls[(i + 1) % sandaliaPlanaImageUrls.length] : images[(i + catIndex + 1) % images.length] },
         ],
         badge: i % 3 === 0 ? "Nuevo" : i % 3 === 1 ? "Oferta" : null,
         stock_status: i % 4 === 0 ? "low" : "available",

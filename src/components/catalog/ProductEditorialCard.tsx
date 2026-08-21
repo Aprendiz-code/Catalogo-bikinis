@@ -62,7 +62,9 @@ export function ProductEditorialCard({ product }: Props) {
           <h3 className={cn(
             "product-reference-title product-name font-display text-[clamp(1.3rem,2.8vw,2.6rem)] uppercase leading-[0.9] tracking-[-0.05em] text-[#315252]",
           )}>
-            {product.short_description || product.description || "Referencia demo"}
+            {product.category_id === "cat-3"
+              ? product.name
+              : product.short_description || product.description || "Referencia demo"}
           </h3>
           <p className={cn(
             "product-price font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f2424]",
