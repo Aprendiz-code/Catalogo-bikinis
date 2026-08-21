@@ -70,8 +70,10 @@ export function ProductEditorialCard({ product }: Props) {
             {product.price > 0 ? `Precio: ${formatPriceCOP(product.price)}` : "Precio por confirmar"}
           </p>
           {product.sizes.length > 0 ? (
-            <fieldset className="flex flex-wrap items-center gap-x-1 text-xs uppercase tracking-[0.12em] text-brand-muted">
-              <legend className="mr-1">Talla</legend>
+            <fieldset
+              className="flex flex-wrap items-center gap-x-1 text-xs uppercase tracking-[0.12em] text-brand-muted"
+              aria-label="Tallas disponibles"
+            >
               {product.sizes.map((size, index) => (
                 <span key={size} className="inline-flex items-center gap-x-1">
                   <button
