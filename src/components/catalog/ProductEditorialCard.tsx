@@ -67,7 +67,7 @@ export function ProductEditorialCard({ product }: Props) {
           <p className={cn(
             "product-price font-display text-[clamp(1.1rem,2.1vw,2.2rem)] leading-none tracking-[-0.04em] text-[#2f2424]",
           )}>
-            Precio: {formatPriceCOP(product.price)}
+            {product.price > 0 ? `Precio: ${formatPriceCOP(product.price)}` : "Precio por confirmar"}
           </p>
           {product.sizes.length > 0 ? (
             <fieldset className="flex flex-wrap items-center gap-x-1 text-xs uppercase tracking-[0.12em] text-brand-muted">

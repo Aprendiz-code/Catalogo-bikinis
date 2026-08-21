@@ -100,6 +100,93 @@ const sandaliaImageUrls = Array.from({ length: 70 }, (_, index) => {
   return `/sandalias/sandalia ${sourceNumber}${filenameSpacing}.jpeg`;
 });
 
+const sandaliaPlanaFiles = [
+  "sandalia britney blanca $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia britney cafe$ 35.000 (talla desde la 35 a la 38) .jpeg",
+  "sandalia britney negra $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia cher cafe $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia cher negra $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia eslabon beige $ 50.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia eslabon cafe $ 50.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia eslabon negra $ 50.000  (talla desde la 35 a la 38).jpeg",
+  "sandalia greicy cafe $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia greicy negra $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia JLO beige $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia JLO negra (talla desde la 35 a la 38).jpeg",
+  "sandalia karen blanca $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia karen negra$ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia karol g beige $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia karol g blanca$ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia karol g negra $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia kate dorada $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia kate negra $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia kate plateada $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia kim beige $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia kim blanca $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia kim dorada $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia kim negra negra $ 60.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia laura azul $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia laura blanca $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia laura cafe $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia laura negra $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia laura rosa $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia pink beige$ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia pink blanca $ 35.000(talla desde la 35 a la 38).jpeg",
+  "sandalia pink negra $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia plana  $ 63.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana $ 63.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana 10-20 $ 53.000 (talla desde la 35 a la 40).jpeg",
+  "sandalia plana 10-20 2 $ 53.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana 10-20 3 $ 53.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana 2 $ 63.000 (talla desde la 35 a la 40).jpeg",
+  "sandalia plana 2$ 63.000 (talla desde la 35 a la 40).jpeg",
+  "sandalia plana 3 $ 63.000 (talla desde la 35 a la 40).jpeg",
+  "sandalia plana blanca $ 40.000(talla desde la 35 a la 38).jpeg",
+  "sandalia plana blanca $ 63.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana blanca 2$ 63.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana cafe $ 40.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia plana cafe $ 63.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana negra $ 40.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia plana negra $ 63.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana negra 2$ 63.000(talla desde la 35 a la 40).jpeg",
+  "sandalia plana negra 3 $ 63.000  (talla desde la 35 a la 40).jpeg",
+  "sandalia prada blanca $ 60.000  (talla desde la 35 a la 38).jpeg",
+  "sandalia prada cafe $ 60.000  (talla desde la 35 a la 38).jpeg",
+  "sandalia prada negra $ 60.000  (talla desde la 35 a la 38).jpeg",
+  "sandalia suela mia $ 60.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia suela mia cafe $ 60.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia suela mia dorada $ 35.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia suela mia negra $ 60.000 (talla desde la 35 a la 38).jpeg",
+  "sandalia suela mia plateada $ 35.000 (talla desde la 35 a la 38).jpeg",
+];
+
+const sandaliaPlanaImageUrls = sandaliaPlanaFiles.map(
+  (file) => `/sandalias-planas/${encodeURIComponent(file)}`,
+);
+
+function parseSandaliaPlanaFilename(filename: string) {
+  const fullText = filename.replace(/\.[^.]+$/, "").trim();
+  const priceMatch = fullText.match(/\$\s*([\d.]+)|(?:^|\s)(\d{5,6})(?=\s*(?:\(|talla|$))/i);
+  const sizeMatch = fullText.match(/tallas?\s+(?:desde\s+la\s+)?(\d{2})\s*(?:a|hasta|-)\s*(\d{2})/i);
+  const name = fullText
+    .replace(priceMatch?.[0] || "", "")
+    .replace(/\s*\(\s*tallas?[^)]*\)\s*/i, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/^./, (character) => character.toUpperCase());
+  const sizes = sizeMatch
+    ? Array.from({ length: Number(sizeMatch[2]) - Number(sizeMatch[1]) + 1 }, (_, index) => String(Number(sizeMatch[1]) + index))
+    : [];
+  const priceText = priceMatch?.[1] || priceMatch?.[2];
+
+  return {
+    name: name || fullText,
+    description: fullText,
+    price: priceText ? Number(priceText.replace(/\./g, "")) : null,
+    sizes,
+  };
+}
+
 export function isMockDataEnabled() {
   const value = process.env.NEXT_PUBLIC_USE_MOCK_DATA;
   return value === undefined || value === "" ? true : value === "true";
@@ -260,6 +347,23 @@ export const mockCategories: Category[] = [
     created_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   },
+  {
+    id: "cat-7",
+    name: "Sandalias planas",
+    slug: "sandalias-planas",
+    description: "Diseños planos para caminar con comodidad.",
+    image_url: sandaliaPlanaImageUrls[0],
+    storage_path: null,
+    cover_image_url: null,
+    background_color: colors[6].bg,
+    text_color: colors[6].text,
+    layout_variant: "image-right",
+    products_per_page: 2,
+    is_active: true,
+    display_order: 7,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+  },
 ];
 
 const gafasCatalog = [
@@ -343,7 +447,14 @@ function generateProducts(): Product[] {
     const catMaterials = materials[category.id as keyof typeof materials];
     const isGafasCategory = category.id === "cat-1";
     const isSandaliasCategory = category.id === "cat-5";
-    const totalForCategory = isGafasCategory ? gafasCatalog.length : isSandaliasCategory ? 70 : 6;
+    const isSandaliasPlanasCategory = category.id === "cat-7";
+    const totalForCategory = isGafasCategory
+      ? gafasCatalog.length
+      : isSandaliasCategory
+        ? 70
+        : isSandaliasPlanasCategory
+          ? sandaliaPlanaFiles.length
+          : 6;
 
     for (let i = 0; i < totalForCategory; i++) {
       const productDetails = isGafasCategory ? gafasCatalog[i] : null;
@@ -351,27 +462,46 @@ function generateProducts(): Product[] {
         ? productDetails?.name ?? "Gafas Demo"
         : isSandaliasCategory
           ? "Sandalia plataforma"
+          : isSandaliasPlanasCategory
+            ? parseSandaliaPlanaFilename(sandaliaPlanaFiles[i]).name
           : catNames[i];
       const productMaterial = isGafasCategory
         ? productDetails?.material ?? "Material demo"
         : isSandaliasCategory
           ? "Sandalia plataforma"
+          : isSandaliasPlanasCategory
+            ? parseSandaliaPlanaFilename(sandaliaPlanaFiles[i]).name
           : catMaterials[i] ?? "Acetato";
       const productSizes = isGafasCategory
         ? []
         : isSandaliasCategory
           ? ["35", "36", "37", "38", "39", "40"]
+          : isSandaliasPlanasCategory
+            ? parseSandaliaPlanaFilename(sandaliaPlanaFiles[i]).sizes
           : sizeSets[i % sizeSets.length];
-      const productPrice = isGafasCategory ? 95000 : isSandaliasCategory ? 110000 : 39 + i * 5;
+      const parsedSandaliaPlana = isSandaliasPlanasCategory
+        ? parseSandaliaPlanaFilename(sandaliaPlanaFiles[i])
+        : null;
+      const productPrice = isGafasCategory
+        ? 95000
+        : isSandaliasCategory
+          ? 110000
+          : isSandaliasPlanasCategory
+            ? parsedSandaliaPlana?.price ?? 0
+            : 39 + i * 5;
       const productDescription = isGafasCategory
         ? productDetails?.description ?? "Referencia demo"
         : isSandaliasCategory
           ? "Sandalia plataforma"
+          : isSandaliasPlanasCategory
+            ? parsedSandaliaPlana?.description ?? sandaliaPlanaFiles[i]
           : `Diseño exclusivo de ${category.name}. ${productName} perfecto para disfrutar del estilo.`;
       const productImageUrl = isGafasCategory
         ? productDetails?.image_url ?? gafasImageMap[1]
         : isSandaliasCategory
           ? sandaliaImageUrls[i]
+          : isSandaliasPlanasCategory
+            ? sandaliaPlanaImageUrls[i]
           : images[(i + catIndex) % images.length];
 
       products.push({
@@ -389,7 +519,7 @@ function generateProducts(): Product[] {
         storage_path: null,
         gallery: [
           { url: productImageUrl },
-          { url: isGafasCategory ? gafasImageMap[Math.min(i + 2, 42)] ?? productImageUrl : isSandaliasCategory ? sandaliaImageUrls[(i + 1) % sandaliaImageUrls.length] : images[(i + catIndex + 1) % images.length] },
+          { url: isGafasCategory ? gafasImageMap[Math.min(i + 2, 42)] ?? productImageUrl : isSandaliasCategory ? sandaliaImageUrls[(i + 1) % sandaliaImageUrls.length] : isSandaliasPlanasCategory ? sandaliaPlanaImageUrls[(i + 1) % sandaliaPlanaImageUrls.length] : images[(i + catIndex + 1) % images.length] },
         ],
         badge: i % 3 === 0 ? "Nuevo" : i % 3 === 1 ? "Oferta" : null,
         stock_status: i % 4 === 0 ? "low" : "available",
