@@ -287,7 +287,7 @@ const gafasCatalog = [
   { name: "Bvlgari", material: "Bvlgari", price: 95000, sizes: [], description: "Bvlgari", image_url: gafasImageMap[28] },
   { name: "Fendi", material: "Fendi", price: 95000, sizes: [], description: "Fendi", image_url: gafasImageMap[29] },
   { name: "Fendi", material: "Fendi", price: 95000, sizes: [], description: "Fendi", image_url: gafasImageMap[30] },
-  { name: "Gafas Demo 31", material: "Material demo", price: 95000, sizes: [], description: "Referencia demo", image_url: gafasImageMap[31] },
+  { name: "Fendi", material: "Fendi", price: 95000, sizes: [], description: "Fendi", image_url: gafasImageMap[31] },
   { name: "Ray Ban", material: "Ray Ban", price: 95000, sizes: [], description: "Ray Ban", image_url: gafasImageMap[32] },
   { name: "Ray Ban", material: "Ray Ban", price: 95000, sizes: [], description: "Ray Ban", image_url: gafasImageMap[33] },
   { name: "Versace", material: "Versace", price: 95000, sizes: [], description: "Versace", image_url: gafasImageMap[34] },
