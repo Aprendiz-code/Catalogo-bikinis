@@ -181,7 +181,7 @@ function parseSandaliaPlanaFilename(filename: string) {
 
   return {
     name: name || fullText,
-    description: fullText,
+    description: name || fullText,
     price: priceText ? Number(priceText.replace(/\./g, "")) : null,
     sizes,
   };
