@@ -167,7 +167,7 @@ const sandaliaPlanaImageUrls = sandaliaPlanaFiles.map(
 function parseSandaliaPlanaFilename(filename: string) {
   const fullText = filename.replace(/\.[^.]+$/, "").trim();
   const priceMatch = fullText.match(/\$\s*([\d.]+)|(?:^|\s)(\d{5,6})(?=\s*(?:\(|talla|$))/i);
-  const sizeMatch = fullText.match(/tallas?\s+(?:desde\s+la\s+)?(\d{2})\s*(?:a|hasta|-)\s*(\d{2})/i);
+  const sizeMatch = fullText.match(/tallas?\s+(?:desde\s+la\s+)?(\d{2})\s*(?:a|hasta|-)\s*(?:la\s+)?(\d{2})/i);
   const name = fullText
     .replace(priceMatch?.[0] || "", "")
     .replace(/\s*\(\s*tallas?[^)]*\)\s*/i, "")
