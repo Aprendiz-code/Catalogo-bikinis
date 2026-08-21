@@ -94,6 +94,12 @@ if (typeof console !== "undefined") {
   });
 }
 
+const sandaliaImageUrls = Array.from({ length: 70 }, (_, index) => {
+  const sourceNumber = index + 1 === 36 ? 35 : index + 1;
+  const filenameSpacing = sourceNumber === 2 || sourceNumber === 3 ? " " : "";
+  return `/sandalias/sandalia ${sourceNumber}${filenameSpacing}.jpeg`;
+});
+
 export function isMockDataEnabled() {
   const value = process.env.NEXT_PUBLIC_USE_MOCK_DATA;
   return value === undefined || value === "" ? true : value === "true";
@@ -225,13 +231,13 @@ export const mockCategories: Category[] = [
     name: "Sandalias",
     slug: "sandalias",
     description: "Comodidad para caminar al aire libre.",
-    image_url: images[4],
+    image_url: sandaliaImageUrls[0],
     storage_path: null,
     cover_image_url: null,
     background_color: colors[4].bg,
     text_color: colors[4].text,
     layout_variant: "image-left",
-    products_per_page: 3,
+    products_per_page: 2,
     is_active: true,
     display_order: 5,
     created_at: new Date().toISOString(),
@@ -335,16 +341,38 @@ function generateProducts(): Product[] {
   mockCategories.forEach((category, catIndex) => {
     const catNames = productNames[category.id as keyof typeof productNames];
     const catMaterials = materials[category.id as keyof typeof materials];
-    const totalForCategory = category.id === "cat-1" ? gafasCatalog.length : 6;
+    const isGafasCategory = category.id === "cat-1";
+    const isSandaliasCategory = category.id === "cat-5";
+    const totalForCategory = isGafasCategory ? gafasCatalog.length : isSandaliasCategory ? 70 : 6;
 
     for (let i = 0; i < totalForCategory; i++) {
-      const productDetails = category.id === "cat-1" ? gafasCatalog[i] : null;
-      const productName = category.id === "cat-1" ? productDetails?.name ?? "Gafas Demo" : catNames[i];
-      const productMaterial = category.id === "cat-1" ? productDetails?.material ?? "Material demo" : catMaterials[i] ?? "Acetato";
-      const productSizes = category.id === "cat-1" ? [] : sizeSets[i % sizeSets.length];
-      const productPrice = category.id === "cat-1" ? 95000 : 39 + i * 5;
-      const productDescription = category.id === "cat-1" ? productDetails?.description ?? "Referencia demo" : `Diseño exclusivo de ${category.name}. ${productName} perfecto para disfrutar del estilo.`;
-      const productImageUrl = category.id === "cat-1" ? productDetails?.image_url ?? gafasImageMap[1] : images[(i + catIndex) % images.length];
+      const productDetails = isGafasCategory ? gafasCatalog[i] : null;
+      const productName = isGafasCategory
+        ? productDetails?.name ?? "Gafas Demo"
+        : isSandaliasCategory
+          ? "Sandalia plataforma"
+          : catNames[i];
+      const productMaterial = isGafasCategory
+        ? productDetails?.material ?? "Material demo"
+        : isSandaliasCategory
+          ? "Sandalia plataforma"
+          : catMaterials[i] ?? "Acetato";
+      const productSizes = isGafasCategory
+        ? []
+        : isSandaliasCategory
+          ? ["35", "36", "37", "38", "39", "40"]
+          : sizeSets[i % sizeSets.length];
+      const productPrice = isGafasCategory ? 95000 : isSandaliasCategory ? 110000 : 39 + i * 5;
+      const productDescription = isGafasCategory
+        ? productDetails?.description ?? "Referencia demo"
+        : isSandaliasCategory
+          ? "Sandalia plataforma"
+          : `Diseño exclusivo de ${category.name}. ${productName} perfecto para disfrutar del estilo.`;
+      const productImageUrl = isGafasCategory
+        ? productDetails?.image_url ?? gafasImageMap[1]
+        : isSandaliasCategory
+          ? sandaliaImageUrls[i]
+          : images[(i + catIndex) % images.length];
 
       products.push({
         id: `prod-${productId}`,
@@ -361,7 +389,7 @@ function generateProducts(): Product[] {
         storage_path: null,
         gallery: [
           { url: productImageUrl },
-          { url: category.id === "cat-1" ? gafasImageMap[Math.min(i + 2, 42)] ?? productImageUrl : images[(i + catIndex + 1) % images.length] },
+          { url: isGafasCategory ? gafasImageMap[Math.min(i + 2, 42)] ?? productImageUrl : isSandaliasCategory ? sandaliaImageUrls[(i + 1) % sandaliaImageUrls.length] : images[(i + catIndex + 1) % images.length] },
         ],
         badge: i % 3 === 0 ? "Nuevo" : i % 3 === 1 ? "Oferta" : null,
         stock_status: i % 4 === 0 ? "low" : "available",

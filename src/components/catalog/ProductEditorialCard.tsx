@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { Maximize2 } from "lucide-react";
 import { cn, formatPriceCOP } from "@/lib/utils";
@@ -10,6 +11,8 @@ type Props = {
 };
 
 export function ProductEditorialCard({ product }: Props) {
+  const [selectedSize, setSelectedSize] = useState(product.sizes[0] || "");
+
   return (
     <article
       className={cn(
@@ -66,6 +69,21 @@ export function ProductEditorialCard({ product }: Props) {
           )}>
             Precio: {formatPriceCOP(product.price)}
           </p>
+          {product.sizes.length > 0 ? (
+            <label className="flex items-center gap-2 text-xs uppercase tracking-[0.12em] text-brand-muted">
+              Talla
+              <select
+                value={selectedSize}
+                onChange={(event) => setSelectedSize(event.target.value)}
+                className="border border-brand-line bg-white px-2 py-1 text-xs text-brand-ink"
+                aria-label={`Seleccionar talla de ${product.name}`}
+              >
+                {product.sizes.map((size) => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </label>
+          ) : null}
         </div>
 
       </div>
