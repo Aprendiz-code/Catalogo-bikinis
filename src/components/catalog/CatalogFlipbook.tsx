@@ -34,7 +34,7 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [page, setPage] = useState(1);
   const [bookSize, setBookSize] = useState({ width: 420, height: 594 });
-  const [preview, setPreview] = useState<{ src: string; alt: string } | null>(null);
+  const [preview, setPreview] = useState<{ src: string; alt: string; category?: string } | null>(null);
   const [previewVisible, setPreviewVisible] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
 
@@ -69,9 +69,10 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
 
       const src = trigger.dataset.imagePreviewSrc;
       if (!src) return;
+      const category = trigger.closest<HTMLElement>("[data-category]")?.dataset.category;
       previewPageRef.current = bookRef.current?.pageFlip()?.getCurrentPageIndex() ?? currentPageRef.current;
       previewTriggerRef.current = trigger;
-      setPreview({ src, alt: trigger.dataset.imagePreviewAlt || "Vista previa de gafas" });
+      setPreview({ src, alt: trigger.dataset.imagePreviewAlt || "Vista previa de gafas", category });
       setPreviewVisible(true);
       requestAnimationFrame(() => setPreviewOpen(true));
     };
@@ -255,7 +256,11 @@ export function CatalogFlipbook({ pages, width = 768, height = 1080, whatsapp }:
               alt={preview.alt}
               fill
               sizes="96vw"
-              className="image-preview-content-image object-contain object-center"
+              className={cn(
+                "image-preview-content-image object-contain object-center",
+                (preview.category === "sandalias" || preview.category === "sandalias-planas") &&
+                  "image-preview-bright",
+              )}
             />
           </section>
         </div>

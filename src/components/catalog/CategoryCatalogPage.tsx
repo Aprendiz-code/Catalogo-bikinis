@@ -17,7 +17,11 @@ export function CategoryCatalogPage({
   totalPages = 1,
 }: Props) {
   return (
-    <div className="catalog-outer category-page h-full" style={{ backgroundColor: category.background_color }}>
+    <div
+      className="catalog-outer category-page h-full"
+      data-category={category.slug}
+      style={{ backgroundColor: category.background_color }}
+    >
       <div className="catalog-sheet min-h-0 px-[6%] py-[5%]" style={{ color: category.text_color }}>
         <header className="catalog-header mb-[4%] text-center">
           <h2 className="display-title text-[clamp(2.1rem,4vw,4.4rem)] uppercase tracking-[-0.04em]">
