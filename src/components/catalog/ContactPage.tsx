@@ -1,6 +1,6 @@
 import { buildWhatsAppUrl } from "@/lib/utils";
 import type { CatalogPage, CatalogSettings } from "@/types/database";
-import { Globe2, Instagram, Mail, MessageCircle } from "lucide-react";
+import { Instagram } from "lucide-react";
 import Image from "next/image";
 import closingImage from "../../../img/Portada trasera.avif";
 
@@ -53,10 +53,6 @@ export function ContactPage({ page, settings }: Props) {
 }
 
 function ClosingPage({ page, settings }: Props) {
-  const wa = buildWhatsAppUrl(
-    settings.whatsapp,
-    "Hola, quiero conocer las novedades de la colección",
-  );
   const farewell = page.title || "Gracias por elegirnos";
   const message =
     page.body ||
@@ -64,9 +60,8 @@ function ClosingPage({ page, settings }: Props) {
   const followText =
     page.subtitle ||
     "Síguenos en redes sociales y descubre nuestras novedades, nuevos diseños y promociones especiales.";
-  const instagramUrl = settings.instagram
-    ? `https://instagram.com/${settings.instagram.replace(/^@/, "")}`
-    : undefined;
+  const instagramHandle = settings.instagram || "@srglow_";
+  const instagramUrl = `https://instagram.com/${instagramHandle.replace(/^@/, "")}`;
 
   return (
     <div className="relative h-full w-full overflow-hidden bg-[#d8c2b3] text-[#fffaf4]">
@@ -102,49 +97,27 @@ function ClosingPage({ page, settings }: Props) {
           <p className="script-title mt-4 max-w-md leading-relaxed text-white/95 sm:mt-6 sm:text-sm md:text-base">
             {message}
           </p>
-          <p className="script-title mt-3 flex max-w-md flex-wrap items-center justify-center gap-2 leading-relaxed text-white/90 sm:mt-5 sm:text-xs md:text-sm">
+          <div className="mt-3 flex max-w-md flex-wrap items-center justify-center gap-2 text-center sm:mt-5">
+            <p className="script-title leading-relaxed text-white/90 sm:text-xs md:text-sm">
             {followText}
-            <Instagram size={18} strokeWidth={1.5} aria-label="Instagram" />
-          </p>
+            </p>
+            <a
+              href={instagramUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`Abrir Instagram ${instagramHandle}`}
+              className="inline-flex items-center gap-1.5 text-white transition-opacity hover:opacity-75"
+            >
+              <Instagram size={18} strokeWidth={1.5} />
+              <span className="font-display text-xs uppercase tracking-[0.12em]">{instagramHandle}</span>
+            </a>
+          </div>
           <p className="mt-4 font-display text-xs uppercase tracking-[0.18em] text-white sm:mt-6 sm:text-sm">
             Tu próximo look de playa comienza aquí.
           </p>
         </div>
 
-        <div className="border-t border-white/40 pt-4 sm:pt-5">
-          <div className="grid grid-cols-2 gap-x-3 gap-y-3 text-[0.62rem] text-white sm:grid-cols-4 sm:gap-4 sm:text-xs">
-            <ContactDetail icon={<Instagram size={14} strokeWidth={1.5} />} value={settings.instagram || "[INSTAGRAM DE LA MARCA]"} href={instagramUrl} />
-            <ContactDetail icon={<MessageCircle size={14} strokeWidth={1.5} />} value={settings.phone || settings.whatsapp || "[WHATSAPP]"} href={wa || undefined} />
-            <ContactDetail icon={<Mail size={14} strokeWidth={1.5} />} value="[CORREO ELECTRÓNICO]" />
-            <ContactDetail icon={<Globe2 size={14} strokeWidth={1.5} />} value={settings.website || "[SITIO WEB]"} />
-          </div>
-        </div>
       </div>
     </div>
-  );
-}
-
-function ContactDetail({
-  icon,
-  value,
-  href,
-}: {
-  icon: React.ReactNode;
-  value: string;
-  href?: string;
-}) {
-  const content = (
-    <span className="flex min-w-0 items-center gap-2">
-      <span className="shrink-0 text-white/90">{icon}</span>
-      <span className="min-w-0 break-words leading-tight">{value}</span>
-    </span>
-  );
-
-  return href ? (
-    <a href={href} target="_blank" rel="noreferrer" className="transition-opacity hover:opacity-75">
-      {content}
-    </a>
-  ) : (
-    content
   );
 }
