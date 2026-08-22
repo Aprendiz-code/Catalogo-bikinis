@@ -19,7 +19,7 @@ export function ProductGridCard({ product }: Props) {
             src={product.image_url}
             alt={product.name}
             fill
-            className="object-cover transition duration-500 group-hover:scale-[1.03]"
+            className="product-catalog-image object-cover transition duration-500 group-hover:scale-[1.03]"
             sizes="(max-width:640px) 50vw, (max-width:768px) 33vw, 280px"
           />
         ) : (

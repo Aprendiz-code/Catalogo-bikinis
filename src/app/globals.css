@@ -98,6 +98,11 @@ body {
   height: 100%;
   min-width: 0;
   min-height: 0;
+  filter: brightness(1.14) contrast(1.03) saturate(1.04);
+}
+
+.product-catalog-image {
+  filter: brightness(1.14) contrast(1.03) saturate(1.04);
 }
 
 .product-info {
